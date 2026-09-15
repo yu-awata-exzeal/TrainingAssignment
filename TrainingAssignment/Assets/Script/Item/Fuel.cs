@@ -1,9 +1,9 @@
-public class Fuel
-{
-    public int Content { get; }
+using UnityEngine;
 
-    public Fuel(int conntent)
-    {
-        Content = conntent;
-    }
+public class Fuel : MonoBehaviour
+{
+    [SerializeField]
+    private StageSettings _currentStageSetting;
+
+    public int Content => _currentStageSetting.FuelContent;
 }
