@@ -1,9 +1,9 @@
+/// <summary>
+/// プレイヤーとインタラクト対象を結びつける
+/// </summary>
 public class InteractionService
 {
-
-    public static void Interact(
-        PlayerInventory inventory,
-        IInteractable target)
+    public static void Interact(PlayerInventory inventory, IInteractable target)
     {
         if (target == null)
         {
@@ -14,7 +14,6 @@ public class InteractionService
         {
             Inventory = inventory,
         };
-
 
         target.Interact(context);
     }

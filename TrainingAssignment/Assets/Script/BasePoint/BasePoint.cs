@@ -6,6 +6,7 @@ public class BasePoint : MonoBehaviour, IInteractable
     /// 現在のエネルギー量
     /// </summary>
     private int _currntEnergyContent = 0;
+    InteractType IInteractable.Type => InteractType.ButtonInput;
 
     void Start()
     {
@@ -20,8 +21,7 @@ public class BasePoint : MonoBehaviour, IInteractable
     public void Interact(InteractionContext context)
     {
 
-        if (!context.Inventory.TryUseFuel(
-               out var item))
+        if (!context.Inventory.TryUseFuel(out var item))
         {
             return;
         }

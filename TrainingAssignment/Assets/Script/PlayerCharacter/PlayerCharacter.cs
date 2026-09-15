@@ -13,7 +13,6 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField]
     private float _speed = 5.0f;
 
-
     private InputAction _moveAction;
 
     private void Start()
@@ -31,7 +30,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         Move();
 
-        Interact();
+        InteractButtonInput();
     }
 
     private void Move()
@@ -42,7 +41,7 @@ public class PlayerCharacter : MonoBehaviour
         transform.Translate(move);
     }
 
-    private void Interact()
+    private void InteractButtonInput()
     {
         if (InputSystem.actions.FindAction("Interact").WasPressedThisFrame())
         {
