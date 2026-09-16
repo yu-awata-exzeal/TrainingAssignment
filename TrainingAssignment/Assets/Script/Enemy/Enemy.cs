@@ -32,12 +32,23 @@ public class Enemy : MonoBehaviour
     /// </summary>
     [SerializeField]
     private float _edgeDistance = 1f;
+    /// <summary>
+    /// 行動不能状態の継続時間
+    /// </summary>
+    [SerializeField]
+    private float _incapacitatedDuration = 3.0f;
+    [SerializeField]
+    private int _maxHitPoint = 3;
 
     private Rigidbody2D _rigidbody;
     private Bounds _bounds;
-
     private Vector2 _direction;
     private float _directionTimer;
+
+    private float _incapacitatedTimer;
+    private int _currentHitPoint = 0;
+
+    private bool _isIncapacitated = false;
 
     private void Awake()
     {
@@ -46,15 +57,34 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        _currentHitPoint = _maxHitPoint;
         _bounds = _wanderArea.bounds;
         _direction = Random.insideUnitCircle.normalized;
         _directionTimer = _directionChangeInterval;
     }
 
+    private void Update()
+    {
+        ChangeIncapacitated();
+    }
+
     private void FixedUpdate()
     {
-        UpdateDirection();
-        UpdateMovement();
+        if (!_isIncapacitated)
+        {
+            UpdateDirection();
+            UpdateMovement();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        _currentHitPoint--;
+
+        if (_currentHitPoint == 0)
+        {
+            _isIncapacitated = true;
+        }
     }
 
     /// <summary>
@@ -125,5 +155,20 @@ public class Enemy : MonoBehaviour
             position.x > bounds.max.x - _edgeDistance ||
             position.y < bounds.min.y + _edgeDistance ||
             position.y > bounds.max.y - _edgeDistance;
+    }
+
+    private void ChangeIncapacitated()
+    {
+        if (_isIncapacitated)
+        {
+            _incapacitatedTimer += Time.deltaTime;
+
+            if (_incapacitatedTimer > _incapacitatedDuration)
+            {
+                _incapacitatedTimer = 0;
+                _isIncapacitated = false;
+                _currentHitPoint = _maxHitPoint;
+            }
+        }
     }
 }
