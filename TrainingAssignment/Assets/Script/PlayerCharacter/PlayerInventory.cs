@@ -1,22 +1,42 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーの所持アイテム
+/// </summary>
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField]
     private Fuel _fuel;
+    [SerializeField]
+    private InteractionDetector _interactionDetector;
 
+    private Dictionary<string, int> itemList = new();
+
+    /// <summary>
+    /// 燃料アイテムを使用
+    /// </summary>
+    /// <param name="fuel"> 使用した燃料 </param>
+    /// <returns></returns>
     public bool TryUseFuel(out Fuel fuel)
     {
-        if (_fuel == null)
+        if (itemList.ContainsKey(nameof(Fuel))
+            && itemList[nameof(Fuel)] > 0)
         {
-            fuel = null;
-            return false;
+            itemList[nameof(Fuel)]--;
+            fuel = _fuel;
+            return true;
         }
 
-        fuel = _fuel;
+        fuel = null;
+        return false;
+    }
 
-        // ここで所持数を1減らす
-        _fuel = null;
-        return true;
+    /// <summary>
+    /// 燃料アイテムを補充
+    /// </summary>
+    public void ChatchFuel()
+    {
+        itemList[nameof(Fuel)]++;
     }
 }
