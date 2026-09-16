@@ -232,6 +232,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f3381121c4c3b04c81e83abe7db9668, type: 3}
+--- !u!224 &187530969 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6298773130777741521, guid: 9f3381121c4c3b04c81e83abe7db9668, type: 3}
+  m_PrefabInstance: {fileID: 187530968}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &572862305
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1072,6 +1077,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0862be3ff1553b94088fc0c1cd8323eb, type: 3}
 --- !u!1001 &3131421528618667050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1238,6 +1245,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 519420032}
   - {fileID: 1398672746}
   - {fileID: 572862305}
   - {fileID: 418599525636679607}
