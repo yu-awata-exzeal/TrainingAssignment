@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーの所持アイテム
+/// </summary>
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField]
@@ -18,7 +21,7 @@ public class PlayerInventory : MonoBehaviour
     public bool TryUseFuel(out Fuel fuel)
     {
         if (itemList.ContainsKey(nameof(Fuel))
-            || itemList[nameof(Fuel)] > 0)
+            && itemList[nameof(Fuel)] > 0)
         {
             itemList[nameof(Fuel)]--;
             fuel = _fuel;

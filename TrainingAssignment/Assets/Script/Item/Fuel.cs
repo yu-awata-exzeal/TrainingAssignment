@@ -1,7 +1,6 @@
 using UnityEngine;
 
 public class Fuel : MonoBehaviour, IInteractable
-public class Fuel
 {
     public int Content { get; }
 
