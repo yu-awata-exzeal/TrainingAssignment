@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Fuel : MonoBehaviour, IInteractable
 {
-    public int Content { get; }
+    [SerializeField]
+    private StageSettings _currentStageSetting;
 
     InteractType IInteractable.Type => InteractType.ButtonInput;
     public int Content => _currentStageSetting.FuelContent;
@@ -10,8 +11,5 @@ public class Fuel : MonoBehaviour, IInteractable
     public void Interact(InteractionContext context)
     {
         context.Inventory.ChatchFuel();
-    public Fuel(int conntent)
-    {
-        Content = conntent;
     }
 }
