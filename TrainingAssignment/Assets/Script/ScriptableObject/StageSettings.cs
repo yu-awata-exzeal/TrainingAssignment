@@ -4,6 +4,10 @@ using UnityEngine;
 public class StageSettings : ScriptableObject
 {
     /// <summary>
+    /// 生存時間の制限時間
+    /// </summary>
+    public float SurvivalTimeLimit;
+    /// <summary>
     /// 拠点のエネルギー量上限
     /// </summary>
     public int MaxBasePointEnergy;

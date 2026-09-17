@@ -15,6 +15,11 @@ public class BasePoint : MonoBehaviour, IInteractable
     float _timer = 0.0f;
     InteractType IInteractable.Type => InteractType.ButtonInput;
 
+    /// <summary>
+    /// 現在のエネルギー量
+    /// </summary>
+    public float CurrentEnelgyContent => _currntEnergyContent;
+
     void Start()
     {
 
