@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3190a854585114a98264489426bc1f, type: 3}
   m_Name: ExampleStage
   m_EditorClassIdentifier: Assembly-CSharp::StageSettings
+  SurvivalTimeLimit: 60
   MaxBasePointEnergy: 100
   MaxPlayerEnergy: 50
   EnergyConsumptionRate: 5

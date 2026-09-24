@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 2291694322948907729}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.2, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -230,8 +230,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9214716463458134681}
-  - component: {fileID: 2799726431915688921}
   - component: {fileID: 4968047705328742005}
+  - component: {fileID: 5052165245671456907}
+  - component: {fileID: 2799726431915688921}
   - component: {fileID: 3526796506995194136}
   m_Layer: 0
   m_Name: PlayerCharactor
@@ -258,6 +259,37 @@ Transform:
   - {fileID: 8718718857557572389}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4968047705328742005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650515629416835819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f000a96c51f7d641aacbf490664ac38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
+  _inventory: {fileID: 5052165245671456907}
+  _interactionDetector: {fileID: 0}
+  _inventory: {fileID: 5052165245671456907}
+  _speed: 5
+  _attackRange: 10
+--- !u!114 &5052165245671456907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650515629416835819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac8b38ff7769ab4a94f6335babb408f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  _fuel: {fileID: 5400022947944032318, guid: b0198143d71074945aa2a98ea7beeb28, type: 3}
+  _interactionDetector: {fileID: 0}
 --- !u!212 &2799726431915688921
 SpriteRenderer:
   serializedVersion: 2
@@ -317,21 +349,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &4968047705328742005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2650515629416835819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f000a96c51f7d641aacbf490664ac38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
-  _interactionDetector: {fileID: 0}
-  _inventory: {fileID: 0}
-  _speed: 5
 --- !u!58 &3526796506995194136
 CircleCollider2D:
   m_ObjectHideFlags: 0

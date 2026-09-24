@@ -12,7 +12,7 @@ public class BasePoint : MonoBehaviour, IInteractable
     /// 現在のエネルギー量
     /// </summary>
     private float _currntEnergyContent = 0;
-    float _timer = 0.0f;
+    private float _timer = 0.0f;
     InteractType IInteractable.Type => InteractType.ButtonInput;
 
     /// <summary>
@@ -22,7 +22,6 @@ public class BasePoint : MonoBehaviour, IInteractable
 
     void Start()
     {
-
         _currntEnergyContent = _currentStageSetting.MaxBasePointEnergy;
     }
 
@@ -41,8 +40,7 @@ public class BasePoint : MonoBehaviour, IInteractable
             _timer = 0.0f;
         }
 
-        float energyRadio = (_currntEnergyContent / _currentStageSetting.MaxBasePointEnergy);
-        _energySlider.value = energyRadio;
+        _energySlider.value = _currntEnergyContent / _currentStageSetting.MaxBasePointEnergy;
     }
 
     public void Interact(InteractionContext context)
@@ -51,6 +49,8 @@ public class BasePoint : MonoBehaviour, IInteractable
         {
             return;
         }
+
+        Debug.Log($"[{nameof(BasePoint)}] インタラクト");
 
         //回復
         _currntEnergyContent += item.Content;

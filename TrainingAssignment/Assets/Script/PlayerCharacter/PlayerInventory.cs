@@ -6,11 +6,14 @@ using UnityEngine;
 /// </summary>
 public class PlayerInventory : MonoBehaviour
 {
+    /// <summary>
+    /// 燃料アイテム
+    /// </summary>
     [SerializeField]
     private Fuel _fuel;
-    [SerializeField]
-    private InteractionDetector _interactionDetector;
-
+    /// <summary>
+    /// 取得アイテムと所持数のリスト
+    /// </summary>
     private Dictionary<string, int> itemList = new();
 
     /// <summary>
