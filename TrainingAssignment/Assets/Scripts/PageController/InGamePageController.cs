@@ -3,38 +3,30 @@ using Page;
 
 namespace PageController
 {
-    public class InGamePageController : PageControllerBase<InGamePage, InGameContext>
+    public class InGamePageController : PageControllerBase<InGamePage, InGamePageContext>
     {
         public override string Name => "InGamePage";
-        private InGameManager _inGameManager = new();
+        private InGameSystem _inGameManager = new();
 
         public override void Setup()
         {
             _inGameManager.Setup();
 
-            _context = new InGameContext()
+            _context = new InGamePageContext()
             {
                 BackToTitleButtonClick = BackToTitle,
+                OnOpenResult = OpenResult,
             };
-        }
-
-        private void OnDestroy()
-        {
-
         }
 
         private void BackToTitle()
         {
-            var controller = new TitlePageController();
-
-            controller.CreatePage();
+            ScreenNavigator.Instance.ChangePage(new TitlePageController());
         }
 
         private void OpenResult()
         {
-            var controller = new ResultPageController();
-
-            controller.CreatePage();
+            ScreenNavigator.Instance.ChangePage(new ResultPageController());
         }
     }
 }

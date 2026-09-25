@@ -1,18 +1,29 @@
 using Manager;
 using System;
+using TMPro;
+using UnityEngine;
 
 namespace Page
 {
-    public class InGameContext : IContext
+    public class InGamePageContext : IContext
     {
+        public StageSettings TargetStageSettings { get; set; }
         public Action OnOpenResult { get; init; }
         public Action BackToTitleButtonClick { get; init; }
     }
 
 
-    public class InGamePage : PageBase<InGameContext>
+    public class InGamePage : PageBase<InGamePageContext>
     {
-        private InGameManager _inGameManager = new();
+        [SerializeField]
+        private TextMeshProUGUI _itemCountText;
+
+        private InGameSystem _inGameManager = new();
+
+        private void Update()
+        {
+
+        }
 
         private void OnDestroy()
         {

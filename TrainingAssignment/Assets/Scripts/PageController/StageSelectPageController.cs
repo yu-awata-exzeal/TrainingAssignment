@@ -1,3 +1,4 @@
+using Manager;
 using Page;
 
 namespace PageController
@@ -16,9 +17,7 @@ namespace PageController
 
         private void OnOpenStageSelect()
         {
-            var controller = new InGamePageController();
-
-            controller.CreatePage();
+            ScreenNavigator.Instance.ChangePage(new InGamePageController());
         }
     }
 }

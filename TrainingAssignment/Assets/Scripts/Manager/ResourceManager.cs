@@ -32,7 +32,6 @@ namespace Manager
                 || !_prefabs.ContainsKey(path))
                 return;
 
-            Resources.UnloadAsset(_prefabs[path]);
             _prefabs.Remove(path);
         }
 
@@ -46,13 +45,18 @@ namespace Manager
             if (string.IsNullOrEmpty(path))
                 return null;
 
-            if (!_prefabs.ContainsKey(path))
-            {
-                _prefabs[path] = Resources.Load<GameObject>(path);
+            if (_prefabs.TryGetValue(path, out var prefab))
+                return prefab.GetComponent<T>();
 
+            prefab = Resources.Load<GameObject>(path);
+
+            if (prefab == null)
+            {
+                Debug.LogError($"Prefabが見つかりません : {path}");
             }
 
-            return _prefabs[path].GetComponent<T>();
+            _prefabs.Add(path, prefab);
+            return prefab.GetComponent<T>();
         }
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2330849744606672582}
   - component: {fileID: 1023419701374798010}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FrontLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 240552942628898737}
   - component: {fileID: 8577622315438302491}
   - component: {fileID: 1019454003943929337}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -234,7 +234,8 @@ GameObject:
   - component: {fileID: 5052165245671456907}
   - component: {fileID: 2799726431915688921}
   - component: {fileID: 3526796506995194136}
-  m_Layer: 0
+  - component: {fileID: 1885470037419453309}
+  m_Layer: 3
   m_Name: PlayerCharactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,8 +273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
   _inventory: {fileID: 5052165245671456907}
-  _interactionDetector: {fileID: 0}
-  _inventory: {fileID: 5052165245671456907}
   _speed: 5
   _attackRange: 10
 --- !u!114 &5052165245671456907
@@ -289,7 +288,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   _fuel: {fileID: 5400022947944032318, guid: b0198143d71074945aa2a98ea7beeb28, type: 3}
-  _interactionDetector: {fileID: 0}
 --- !u!212 &2799726431915688921
 SpriteRenderer:
   serializedVersion: 2
@@ -385,6 +383,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!50 &1885470037419453309
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650515629416835819}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3067256400045783011
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5670449069425339158}
   - component: {fileID: 473467831482764773}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AroundLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,3 +1,4 @@
+using Manager;
 using Page;
 
 namespace PageController
@@ -14,16 +15,9 @@ namespace PageController
             };
         }
 
-        private void OnDestroy()
-        {
-
-        }
-
         private void OnOpenStageSelect()
         {
-            var controller = new StageSelectPageController();
-
-            controller.CreatePage();
+            ScreenNavigator.Instance.ChangePage(new StageSelectPageController());
         }
     }
 }
