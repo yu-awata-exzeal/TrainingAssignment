@@ -1,7 +1,7 @@
 using Manager;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IInteractable
 {
     /// <summary>
     /// 徘徊範囲
@@ -51,15 +51,16 @@ public class Enemy : MonoBehaviour
 
     private bool _isIncapacitated = false;
 
+    public InteractType Type => InteractType.Raycast;
+
     private void Awake()
     {
-
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
     {
-        gameObject.SetActive(InGameSystem.Instance.CurrentStageSetting.IsActivateEnemy);
+        EnemyManager.Instance.Register(this);
         _currentHitPoint = _maxHitPoint;
         _bounds = _wanderArea.bounds;
         _direction = Random.insideUnitCircle.normalized;
@@ -173,5 +174,10 @@ public class Enemy : MonoBehaviour
                 _currentHitPoint = _maxHitPoint;
             }
         }
+    }
+
+    public void Interact(InteractionContext context)
+    {
+        _currentHitPoint--;
     }
 }

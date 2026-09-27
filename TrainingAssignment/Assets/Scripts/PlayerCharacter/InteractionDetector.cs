@@ -20,9 +20,14 @@ public class InteractionDetector : MonoBehaviour
             return;
         }
 
-        _currentTarget = interactable;
+        if (interactable.Type == InteractType.ButtonInput
+            || interactable.Type == InteractType.OnTrigger)
+        {
+            _currentTarget = interactable;
+        }
 
-        if (_currentTarget.Type == InteractType.OnTrigger)
+
+        if (_currentTarget?.Type == InteractType.OnTrigger)
         {
             Interact();
         }
@@ -35,6 +40,17 @@ public class InteractionDetector : MonoBehaviour
         if (interactable == _currentTarget)
         {
             _currentTarget = null;
+        }
+    }
+
+    protected void CheckRaycastInteractable(Vector3 start, Vector3 direction, float range)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(start, direction, range);
+
+        if (hit.collider is IInteractable target)
+        {
+            _currentTarget = target;
+            Interact();
         }
     }
 
