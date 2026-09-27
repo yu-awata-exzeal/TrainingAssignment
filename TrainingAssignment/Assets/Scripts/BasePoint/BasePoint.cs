@@ -1,13 +1,10 @@
 using Manager;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BasePoint : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private StageSettings _currentStageSetting;
-    [SerializeField]
-    private Slider _energySlider;
 
     /// <summary>
     /// 現在のエネルギー量
@@ -23,6 +20,7 @@ public class BasePoint : MonoBehaviour, IInteractable
 
     void Start()
     {
+        _currentStageSetting = InGameSystem.Instance.CurrentStageSetting;
         _currntEnergyContent = _currentStageSetting.MaxBasePointEnergy;
     }
 
@@ -40,13 +38,11 @@ public class BasePoint : MonoBehaviour, IInteractable
             _currntEnergyContent -= _currentStageSetting.EnergyConsumptionRate;
             _timer = 0.0f;
         }
-
-        _energySlider.value = _currntEnergyContent / _currentStageSetting.MaxBasePointEnergy;
     }
 
     public void Interact(InteractionContext context)
     {
-        if (!context.Inventory.TryUseFuel(out var item))
+        if (!context.Inventory.TryUseFuel(out var contain))
         {
             return;
         }
@@ -54,6 +50,6 @@ public class BasePoint : MonoBehaviour, IInteractable
         Debug.Log($"[{nameof(BasePoint)}] インタラクト");
 
         //回復
-        _currntEnergyContent += item.Content;
+        _currntEnergyContent += contain;
     }
 }
