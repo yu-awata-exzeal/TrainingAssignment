@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacter : InteractionDetector
 {
+    [SerializeField]
+    private Animator _animator;
     /// <summary>
     /// 移動速度
     /// </summary>
@@ -32,6 +34,7 @@ public class PlayerCharacter : InteractionDetector
     private void FixedUpdate()
     {
         Move();
+        Rotate();
         Attack();
         InteractButtonInput();
     }
@@ -46,9 +49,17 @@ public class PlayerCharacter : InteractionDetector
         var move = new Vector2(moveValue.x, moveValue.y) * _speed * Time.deltaTime;
         transform.Translate(move);
 
-        var rotationValue = _rotationAction.ReadValue<Vector2>();
+        GameScene.WorldCamera.transform.position = transform.position;
 
-        transform.Rotate(0.0f, 0.0f, rotationValue.x * Time.deltaTime);
+        _animator.SetBool("IsMove", moveValue.magnitude > 0.0f);
+    }
+
+    private void Rotate()
+    {
+        var rotation = transform.rotation;
+        rotation.z -= _rotationAction.ReadValue<Vector2>().x * Time.deltaTime;
+
+        transform.rotation = rotation;
     }
 
     /// <summary>
@@ -65,7 +76,6 @@ public class PlayerCharacter : InteractionDetector
                 Debug.Log($"Hit: {hit.collider.name}");
             }
         }
-        Debug.DrawRay(transform.position, transform.up, Color.blue, _attackRange);
     }
 
     /// <summary>
@@ -75,7 +85,7 @@ public class PlayerCharacter : InteractionDetector
     {
         if (InputSystem.actions.FindAction("Interact").WasPressedThisFrame())
         {
-            InteractButtonInput();
+            Interact();
         }
     }
 }

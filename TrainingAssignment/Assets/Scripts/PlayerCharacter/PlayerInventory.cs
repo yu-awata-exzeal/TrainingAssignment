@@ -1,3 +1,4 @@
+using Manager;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +7,6 @@ using UnityEngine;
 /// </summary>
 public class PlayerInventory : MonoBehaviour
 {
-    /// <summary>
-    /// 燃料アイテム
-    /// </summary>
-    [SerializeField]
-    private Fuel _fuel;
     /// <summary>
     /// 取得アイテムと所持数のリスト
     /// </summary>
@@ -21,17 +17,18 @@ public class PlayerInventory : MonoBehaviour
     /// </summary>
     /// <param name="fuel"> 使用した燃料 </param>
     /// <returns></returns>
-    public bool TryUseFuel(out Fuel fuel)
+    public bool TryUseFuel(out int fuelContain)
     {
         if (itemList.ContainsKey(nameof(Fuel))
             && itemList[nameof(Fuel)] > 0)
         {
             itemList[nameof(Fuel)]--;
-            fuel = _fuel;
+            InGameSystem.Context.SetFuelCount(itemList[nameof(Fuel)]);
+            fuelContain = Fuel.Content;
             return true;
         }
 
-        fuel = null;
+        fuelContain = 0;
         return false;
     }
 
@@ -40,6 +37,12 @@ public class PlayerInventory : MonoBehaviour
     /// </summary>
     public void ChatchFuel()
     {
+        if (!itemList.ContainsKey(nameof(Fuel)))
+        {
+            itemList.Add(nameof(Fuel), 0);
+        }
+
         itemList[nameof(Fuel)]++;
+        InGameSystem.Context.SetFuelCount(itemList[nameof(Fuel)]);
     }
 }
