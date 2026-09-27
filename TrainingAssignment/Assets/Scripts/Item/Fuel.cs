@@ -3,14 +3,29 @@ using UnityEngine;
 
 public class Fuel : MonoBehaviour, IInteractable
 {
-    [SerializeField]
-    private StageSettings _currentStageSetting;
+    private const float _intervalTime = 2.0f;
+    private float _intervalTimer = 0.0f;
+    /// <summary>
+    /// 取得可能フラグ
+    /// </summary>
+    private bool _isCollectable = true;
 
     InteractType IInteractable.Type => InteractType.OnTrigger;
-    public int Content => _currentStageSetting.FuelContent;
+    public static int Content => InGameSystem.Instance.CurrentStageSetting.FuelContent;
+
+    private void Start()
+    {
+        _intervalTimer = _intervalTime;
+    }
+
+    private void Update()
+    {
+
+    }
 
     public void Interact(InteractionContext context)
     {
         context.Inventory.ChatchFuel();
+        FuelManager.Instance.RegisterUnActiveFuel(this);
     }
 }
