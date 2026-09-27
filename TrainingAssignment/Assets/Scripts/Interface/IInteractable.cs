@@ -4,6 +4,7 @@ public enum InteractType
 {
     ButtonInput,
     OnTrigger,
+    Raycast,
 }
 
 /// <summary>

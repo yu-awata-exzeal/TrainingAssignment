@@ -24,7 +24,7 @@ namespace Manager
 
         public void SetAuxiliaryEnergy(float setValue)
         {
-            MainEnergy = setValue;
+            AuxiliaryEnergy = setValue;
         }
 
         public void AddMainEnergy(float addValue)
@@ -34,7 +34,7 @@ namespace Manager
 
         public void AddAuxiliaryEnergy(float addValue)
         {
-            MainEnergy += addValue;
+            AuxiliaryEnergy += addValue;
         }
 
         public void SetFuelCount(int fuelCount)
@@ -77,7 +77,11 @@ namespace Manager
             _objectManager = new();
             _objectManager.CreateObject<PlayerCharacter>();
             _objectManager.CreateObject<BasePoint>();
+
             CountTimer().Forget();
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         public void Reset()
@@ -87,6 +91,7 @@ namespace Manager
             Context.SetFuelCount(0);
             _inGameTimer = _currentStageSetting.SurvivalTimeLimit;
             _isEndInGame = false;
+            EnemyManager.Instance.ActivateEnemys(_currentStageSetting.IsActivateEnemy);
         }
 
         /// <summary>
@@ -95,37 +100,71 @@ namespace Manager
         /// <returns></returns>
         private async UniTask CountTimer()
         {
+            _inGameTimer = _currentStageSetting.SurvivalTimeLimit;
+
             while (!_isEndInGame)
             {
                 _inGameTimer -= Time.deltaTime;
 
                 if (_inGameTimer < 0.0f)
                 {
-                    Clear();
+                    OpenResult(ResultType.Clear);
                     _isEndInGame = true;
                     break;
                 }
+
+                ConsumeEnergy();
+
+                if (Context.MainEnergy <= 0.0f)
+                {
+                    OpenResult(ResultType.GameOver);
+                }
+
                 await UniTask.Yield();
             }
         }
 
         /// <summary>
-        /// クリア判定時の処理
+        /// インゲーム内の各タイマー計測
         /// </summary>
-        private void Clear()
+        /// <returns></returns>
+        private async UniTask CountTimerHard()
         {
-            Reset();
-            _objectManager.DestroyAllObject();
-            ScreenNavigator.Instance.ChangePage(new ResultPageController());
+            _inGameTimer = 0.0f;
+
+            while (!_isEndInGame)
+            {
+                _inGameTimer += Time.deltaTime;
+
+
+                ConsumeEnergy();
+
+                if (Context.MainEnergy <= 0.0f)
+                {
+                    OpenResult(ResultType.Clear);
+                }
+
+                await UniTask.Yield();
+            }
+        }
+
+        private void ConsumeEnergy()
+        {
+            Context.AddMainEnergy(-CurrentStageSetting.EnergyConsumptionRate * Time.deltaTime);
+            Context.AddAuxiliaryEnergy(-(CurrentStageSetting.EnergyConsumptionRate / 2.0f) * Time.deltaTime);
         }
 
         /// <summary>
-        /// ゲームオーバー判定時の処理
+        /// クリア判定時の処理
         /// </summary>
-        private void GameOver()
+        private void OpenResult(ResultType result)
         {
             Reset();
             _objectManager.DestroyAllObject();
+            ScreenNavigator.Instance.ChangePage(new ResultPageController() { Type = result });
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
