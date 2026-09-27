@@ -26,12 +26,16 @@ namespace Page
 
         private readonly float _secondParMinute = 60;
         private float _minutesCounter = 0.0f;
+        private float _secondsCounter = 0.0f;
+        private bool _subMinute = true;
 
         protected override void OnSetup()
         {
             _mainEnergyUI.maxValue = Context.InGameContext.MainEnergy;
             _subEnergyUI.maxValue = Context.InGameContext.AuxiliaryEnergy;
             _itemCountText.text = InGameSystem.Context.FuelCount.ToString();
+            _minutesCounter = InGameSystem.Instance.SurvivaleTimer / _secondParMinute;
+            _secondsCounter = InGameSystem.Instance.SurvivaleTimer % _secondParMinute;
         }
 
         private void Update()
@@ -40,17 +44,28 @@ namespace Page
             UpdateSurvivalTimerText();
         }
 
+        /// <summary>
+        /// ê∂ë∂éûä‘ÇÃåvë™
+        /// </summary>
         private void UpdateSurvivalTimerText()
         {
-            var second = InGameSystem.Instance.SurvivaleTimer % _secondParMinute;
+            _secondsCounter = InGameSystem.Instance.SurvivaleTimer % _secondParMinute;
 
             _itemCountText.text = InGameSystem.Context.FuelCount.ToString();
             _minutesText.text = _minutesCounter.ToString("0");
-            _secondText.text = second.ToString("0");
+            _secondText.text = _secondsCounter.ToString("0");
 
-            if (second >= _secondParMinute - 1)
+            if (_secondsCounter >= _secondParMinute - 1)
             {
-                _minutesCounter++;
+                if (_subMinute)
+                {
+                    _minutesCounter--;
+                    _subMinute = false;
+                }
+            }
+            else
+            {
+                _subMinute = true;
             }
         }
 

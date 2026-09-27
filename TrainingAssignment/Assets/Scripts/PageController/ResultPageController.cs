@@ -3,10 +3,19 @@ using Page;
 
 namespace PageController
 {
+    public enum ResultType
+    {
+        Clear,
+        GameOver,
+    }
+
     public class ResultPageController : PageControllerBase<ResultPage, ResultContext>
     {
 
         public override string Name => "ResultPage";
+
+        public ResultType Type { get; init; }
+
         public override void Setup()
         {
 
@@ -15,11 +24,6 @@ namespace PageController
                 OnOpenTitleButtlonClick = OpenTitle,
                 OnRestartInGameButtonClick = RestartInGame,
             };
-        }
-
-        private void OnDestroy()
-        {
-
         }
 
         private void OpenTitle()
