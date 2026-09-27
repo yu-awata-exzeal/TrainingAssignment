@@ -10,7 +10,7 @@ using UnityEngine;
 public class GameScene : MonoBehaviour
 {
     [Serializable]
-    private class StageSettingData
+    public class StageSettingData
     {
         public GameStageType Type;
         public StageSettings StageSetting;
@@ -26,15 +26,16 @@ public class GameScene : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Transform _canvasTransform = null;
-
     [SerializeField]
     private Camera _mainCamera = null;
 
+    public static List<StageSettingData> StageDataList { get; private set; }
     public static Camera WorldCamera { get; private set; }
 
     private void Awake()
     {
         WorldCamera = _mainCamera;
+        StageDataList = _stageSettingList;
     }
 
     private void Start()

@@ -1,3 +1,4 @@
+using Manager;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -52,11 +53,13 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
     {
+        gameObject.SetActive(InGameSystem.Instance.CurrentStageSetting.IsActivateEnemy);
         _currentHitPoint = _maxHitPoint;
         _bounds = _wanderArea.bounds;
         _direction = Random.insideUnitCircle.normalized;
