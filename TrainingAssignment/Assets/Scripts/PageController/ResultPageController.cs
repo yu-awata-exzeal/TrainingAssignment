@@ -17,11 +17,6 @@ namespace PageController
             };
         }
 
-        private void OnDestroy()
-        {
-
-        }
-
         private void OpenTitle()
         {
             ScreenNavigator.Instance.ChangePage(new TitlePageController());
