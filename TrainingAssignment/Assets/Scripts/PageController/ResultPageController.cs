@@ -29,7 +29,11 @@ namespace PageController
 
         private void RestartInGame()
         {
-            ScreenNavigator.Instance.ChangePage(new InGamePageController());
+            ScreenNavigator.Instance.ChangePage(new InGamePageController(new()
+            {
+                InGameContext = InGameSystem.Context,
+                StageSetting = InGameSystem.Instance.CurrentStageSetting,
+            }));
         }
     }
 

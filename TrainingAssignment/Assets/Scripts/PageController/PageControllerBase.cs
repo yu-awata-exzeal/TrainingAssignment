@@ -34,11 +34,6 @@ namespace PageController
 
         public string PrefabPath => $"Prefabs/Page/{Name}";
 
-        public PageControllerBase()
-        {
-            Setup();
-        }
-
         public abstract void Setup();
 
         /// <summary>
@@ -46,6 +41,7 @@ namespace PageController
         /// </summary>
         public sealed override void CreatePage()
         {
+            Setup();
             _page = ResourceManager.InstantiatePrefab<TPage>(PrefabPath);
             _page.transform.SetParent(ScreenNavigator.Instance.CanvasScope, false);
             _page.Setup(_context);

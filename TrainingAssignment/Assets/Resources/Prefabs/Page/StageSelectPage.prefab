@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6032013711544199961}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 961910408293536996}
+        m_TargetAssemblyTypeName: Page.StageSelectPage, Assembly-CSharp
+        m_MethodName: OpenHardStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &326057153841916058
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +390,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3746484032942505492}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 961910408293536996}
+        m_TargetAssemblyTypeName: Page.StageSelectPage, Assembly-CSharp
+        m_MethodName: OpenStanderdStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5907237012860293199
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +588,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 958295983043980540}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 961910408293536996}
+        m_TargetAssemblyTypeName: Page.StageSelectPage, Assembly-CSharp
+        m_MethodName: OpenEasyStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6904212603897120002
 GameObject:
   m_ObjectHideFlags: 0
