@@ -1,3 +1,4 @@
+using Manager;
 using Page;
 
 namespace PageController
@@ -23,12 +24,16 @@ namespace PageController
 
         private void OpenTitle()
         {
-
+            ScreenNavigator.Instance.ChangePage(new TitlePageController());
         }
 
         private void RestartInGame()
         {
-
+            ScreenNavigator.Instance.ChangePage(new InGamePageController(new()
+            {
+                InGameContext = InGameSystem.Context,
+                StageSetting = InGameSystem.Instance.CurrentStageSetting,
+            }));
         }
     }
 

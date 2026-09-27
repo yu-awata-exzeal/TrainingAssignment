@@ -4,23 +4,35 @@ namespace Page
 {
     public class StageSelectContext : IContext
     {
-        public Action OnOpenInGameButtonClick { get; init; }
+        public Action OnSelectEasyStageClick { get; init; }
+        public Action OnSelectStanderdStageClick { get; init; }
+        public Action OnSelectHardStageClick { get; init; }
     }
 
     public class StageSelectPage : PageBase<StageSelectContext>
     {
-
-        private void OnDestroy()
+        /// <summary>
+        /// Easyステージのインゲーム画面に遷移(ボタンUIイベント用)
+        /// </summary>
+        public void OpenEasyStage()
         {
-
+            Context.OnSelectEasyStageClick.Invoke();
         }
 
         /// <summary>
-        /// インゲーム画面に遷移(ボタンUIイベント用)
+        /// Standerdステージのインゲーム画面に遷移(ボタンUIイベント用)
         /// </summary>
-        public void OpenInGame()
+        public void OpenStanderdStage()
         {
-            Context.OnOpenInGameButtonClick.Invoke();
+            Context.OnSelectStanderdStageClick.Invoke();
+        }
+
+        /// <summary>
+        /// Hardステージのインゲーム画面に遷移(ボタンUIイベント用)
+        /// </summary>
+        public void OpenHardStage()
+        {
+            Context.OnSelectHardStageClick.Invoke();
         }
     }
 }
