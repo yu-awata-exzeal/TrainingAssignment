@@ -437,10 +437,10 @@ RectTransform:
   - {fileID: 2138917766455678129}
   m_Father: {fileID: 3704868720306396041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.4593333}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -237}
-  m_SizeDelta: {x: 330, y: 400}
+  m_AnchoredPosition: {x: 0, y: -259}
+  m_SizeDelta: {x: 330, y: 356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5411089468618352087
 MonoBehaviour:
@@ -966,6 +966,30 @@ PrefabInstance:
     - target: {fileID: 4582317507032170156, guid: 5a26f8b7d1dccdb409a7febb59f97652, type: 3}
       propertyPath: m_Name
       value: StageSelectPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727467151810221495, guid: 5a26f8b7d1dccdb409a7febb59f97652, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727467151810221495, guid: 5a26f8b7d1dccdb409a7febb59f97652, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 856905764964590021, guid: b5af601fcc6d0984885b12420c735c72, type: 3}
+    - target: {fileID: 7727467151810221495, guid: 5a26f8b7d1dccdb409a7febb59f97652, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727467151810221495, guid: 5a26f8b7d1dccdb409a7febb59f97652, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727467151810221495, guid: 5a26f8b7d1dccdb409a7febb59f97652, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727467151810221495, guid: 5a26f8b7d1dccdb409a7febb59f97652, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
