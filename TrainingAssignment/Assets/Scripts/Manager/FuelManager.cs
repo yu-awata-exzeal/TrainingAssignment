@@ -39,6 +39,10 @@ public class FuelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 非アクティブとなるアイテムを登録
+    /// </summary>
+    /// <param name="item"></param>
     public void RegisterUnActiveFuel(Fuel item)
     {
         _respawnItems.Add(

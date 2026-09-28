@@ -6,7 +6,13 @@ public class InGameObjectManager
 {
     private class InGameObjectData
     {
+        /// <summary>
+        /// 登録しているオブジェクト
+        /// </summary>
         public GameObject Object { get; init; }
+        /// <summary>
+        /// オブジェクトのプレハブPath
+        /// </summary>
         public string Path { get; init; }
     }
 
@@ -32,6 +38,9 @@ public class InGameObjectManager
         newObject.transform.parent = _worldScope;
     }
 
+    /// <summary>
+    /// 登録してあるオブジェクトをすべて削除
+    /// </summary>
     public void DestroyAllObject()
     {
         foreach (var objData in _objectList)

@@ -5,8 +5,14 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerCharacter : InteractionDetector
 {
+    /// <summary>
+    /// 前方を照らすライト
+    /// </summary>
     [SerializeField]
     private Light2D _frontLight;
+    /// <summary>
+    /// マズルフラッシュ
+    /// </summary>
     [SerializeField]
     private GameObject _muzzleFlash;
     [SerializeField]
@@ -64,7 +70,7 @@ public class PlayerCharacter : InteractionDetector
         var move = new Vector2(moveValue.x, moveValue.y) * _speed * Time.deltaTime;
         transform.Translate(move);
 
-        GameScene.WorldCamera.transform.position = transform.position + _cameraOffset;
+        GameScene.MainCamera.transform.position = transform.position + _cameraOffset;
 
         _animator.SetBool("IsMove", moveValue.magnitude > 0.0f);
     }
@@ -82,7 +88,6 @@ public class PlayerCharacter : InteractionDetector
     /// </summary>
     private void Attack()
     {
-        Debug.DrawRay(transform.position, transform.up, Color.blue, _attackRange);
         if (InputSystem.actions.FindAction("Attack").WasPressedThisFrame())
         {
             CheckRaycastInteractable(transform.position, transform.up, _attackRange);
@@ -115,7 +120,7 @@ public class PlayerCharacter : InteractionDetector
     {
         if (InputSystem.actions.FindAction("Interact").WasPressedThisFrame())
         {
-            Interact();
+            Interact(InteractType.ButtonInput);
         }
     }
 }

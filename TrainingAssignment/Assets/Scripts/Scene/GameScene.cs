@@ -29,23 +29,24 @@ public class GameScene : MonoBehaviour
     [SerializeField]
     private Camera _mainCamera = null;
 
+    /// <summary>
+    /// ステージ情報リスト
+    /// </summary>
     public static List<StageSettingData> StageDataList { get; private set; }
-    public static Camera WorldCamera { get; private set; }
+    /// <summary>
+    /// メインとなるカメラ
+    /// </summary>
+    public static Camera MainCamera { get; private set; }
 
     private void Awake()
     {
-        WorldCamera = _mainCamera;
+        MainCamera = _mainCamera;
         StageDataList = _stageSettingList;
     }
 
     private void Start()
     {
         OpenTitlePage();
-    }
-
-    private void Update()
-    {
-
     }
 
     /// <summary>

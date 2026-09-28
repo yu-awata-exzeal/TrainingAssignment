@@ -63,8 +63,17 @@ namespace Manager
         private bool _isEndInGame = false;
 
         public static InGameSystem Instance => _instance ??= new();
+        /// <summary>
+        /// インゲームのコンテキスト
+        /// </summary>
         public static InGameContext Context => _context ??= new();
+        /// <summary>
+        /// 現在のステージ設定
+        /// </summary>
         public StageSettings CurrentStageSetting => _currentStageSetting;
+        /// <summary>
+        /// 生存時間
+        /// </summary>
         public float SurvivaleTimer => _inGameTimer;
 
         /// <summary>
@@ -84,6 +93,9 @@ namespace Manager
             Cursor.lockState = CursorLockMode.Locked;
         }
 
+        /// <summary>
+        /// リセット処理
+        /// </summary>
         public void Reset()
         {
             Context.SetMainEnergy(_currentStageSetting.MaxBasePointEnergy);
@@ -118,30 +130,6 @@ namespace Manager
                 if (Context.MainEnergy <= 0.0f)
                 {
                     OpenResult(ResultType.GameOver);
-                }
-
-                await UniTask.Yield();
-            }
-        }
-
-        /// <summary>
-        /// インゲーム内の各タイマー計測
-        /// </summary>
-        /// <returns></returns>
-        private async UniTask CountTimerHard()
-        {
-            _inGameTimer = 0.0f;
-
-            while (!_isEndInGame)
-            {
-                _inGameTimer += Time.deltaTime;
-
-
-                ConsumeEnergy();
-
-                if (Context.MainEnergy <= 0.0f)
-                {
-                    OpenResult(ResultType.Clear);
                 }
 
                 await UniTask.Yield();

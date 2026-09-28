@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour, IInteractable
 
     private float _incapacitatedTimer;
     private int _currentHitPoint = 0;
+    private int _energyConsumption = 10;
 
     private bool _isIncapacitated = false;
 
@@ -176,8 +177,19 @@ public class Enemy : MonoBehaviour, IInteractable
         }
     }
 
+    /// <summary>
+    /// インタラクト処理
+    /// </summary>
+    /// <param name="context"></param>
     public void Interact(InteractionContext context)
     {
-        _currentHitPoint--;
+        if (context.InteractType == InteractType.Raycast)
+        {
+            _currentHitPoint--;
+        }
+        else if (context.InteractType == InteractType.OnTrigger)
+        {
+            InGameSystem.Context.AddAuxiliaryEnergy(-_energyConsumption);
+        }
     }
 }

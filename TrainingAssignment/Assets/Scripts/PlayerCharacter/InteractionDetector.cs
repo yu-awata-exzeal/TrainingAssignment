@@ -20,17 +20,8 @@ public class InteractionDetector : MonoBehaviour
             return;
         }
 
-        if (interactable.Type == InteractType.ButtonInput
-            || interactable.Type == InteractType.OnTrigger)
-        {
-            _currentTarget = interactable;
-        }
-
-
-        if (_currentTarget?.Type == InteractType.OnTrigger)
-        {
-            Interact();
-        }
+        _currentTarget = interactable;
+        Interact(InteractType.OnTrigger);
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -50,20 +41,20 @@ public class InteractionDetector : MonoBehaviour
         if (hit.collider is IInteractable target)
         {
             _currentTarget = target;
-            Interact();
+            Interact(InteractType.Raycast);
         }
     }
 
     /// <summary>
     /// 現在検出している対象にインタラクトする。
     /// </summary>
-    public void Interact()
+    public void Interact(InteractType type)
     {
         if (_currentTarget == null)
         {
             return;
         }
 
-        InteractionManager.Interact(_inventory, _currentTarget);
+        InteractionManager.Interact(_inventory, _currentTarget, type);
     }
 }
