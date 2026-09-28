@@ -187,7 +187,7 @@ public class Enemy : MonoBehaviour, IInteractable
         {
             _currentHitPoint--;
         }
-        else if (context.InteractType == InteractType.OnTrigger)
+        else if (context.InteractType == InteractType.OnTriggerEnter)
         {
             InGameSystem.Context.AddAuxiliaryEnergy(-_energyConsumption);
         }

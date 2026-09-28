@@ -21,7 +21,20 @@ public class InteractionDetector : MonoBehaviour
         }
 
         _currentTarget = interactable;
-        Interact(InteractType.OnTrigger);
+        Interact(InteractType.OnTriggerEnter);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        var interactable = other.GetComponent<IInteractable>();
+
+        if (interactable == null)
+        {
+            return;
+        }
+
+        _currentTarget = interactable;
+        Interact(InteractType.OnTriggerStay);
     }
 
     private void OnTriggerExit2D(Collider2D other)
