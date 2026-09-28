@@ -1,57 +1,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FuelManager : MonoBehaviour
+namespace Manager
 {
-    private class ItemData
+    public class FuelManager : MonoBehaviour
     {
-        public Fuel Fuel { get; init; }
-        public float RespawnTimer { get; set; }
-    }
-    public static FuelManager Instance { get; private set; }
-
-    private readonly List<ItemData> _respawnItems = new();
-
-    private readonly float IntervalTime = 2.0f; /*InGameSystem.Instance.CurrentStageSetting.*/
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
-    private void Update()
-    {
-        float currentTime = Time.time;
-
-        for (int i = _respawnItems.Count - 1; i >= 0; i--)
+        private class ItemData
         {
-            var fuelData = _respawnItems[i];
-
-            if (fuelData.RespawnTimer > 0.0f)
-            {
-                fuelData.RespawnTimer -= Time.deltaTime;
-                continue;
-            }
-
-            fuelData.Fuel.gameObject.SetActive(true);
-
-            _respawnItems.Remove(fuelData);
+            public Fuel Fuel { get; init; }
+            public float RespawnTimer { get; set; }
         }
-    }
+        public static FuelManager Instance { get; private set; }
 
-    /// <summary>
-    /// 非アクティブとなるアイテムを登録
-    /// </summary>
-    /// <param name="item"></param>
-    public void RegisterUnActiveFuel(Fuel item)
-    {
-        _respawnItems.Add(
-            new ItemData()
+        private readonly List<ItemData> _respawnItems = new();
+
+        private readonly float IntervalTime = 5.0f;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        private void Update()
+        {
+            float currentTime = Time.time;
+
+            for (int i = _respawnItems.Count - 1; i >= 0; i--)
             {
-                Fuel = item,
-                RespawnTimer = IntervalTime,
+                var fuelData = _respawnItems[i];
+
+                if (fuelData.RespawnTimer > 0.0f)
+                {
+                    fuelData.RespawnTimer -= Time.deltaTime;
+                    continue;
+                }
+
+                fuelData.Fuel.gameObject.SetActive(true);
+
+                _respawnItems.Remove(fuelData);
             }
-        );
-        item.gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// 非アクティブとなるアイテムを登録
+        /// </summary>
+        /// <param name="item"></param>
+        public void RegisterUnActiveFuel(Fuel item)
+        {
+            _respawnItems.Add(
+                new ItemData()
+                {
+                    Fuel = item,
+                    RespawnTimer = IntervalTime,
+                }
+            );
+            item.gameObject.SetActive(false);
+        }
     }
 }

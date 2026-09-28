@@ -1,4 +1,5 @@
 
+using Cysharp.Threading.Tasks;
 using PageController;
 using UnityEngine;
 
@@ -16,5 +17,5 @@ public interface IScreenNaigator
     /// ページ遷移処理
     /// </summary>
     /// <param name="controller"></param>
-    public void ChangePage(PageControllerBase controller);
+    public UniTask ChangePage(PageControllerBase controller);
 }
