@@ -21,9 +21,9 @@ public class BasePoint : MonoBehaviour, IInteractable
             //回復
             InGameSystem.Context.AddMainEnergy(contain);
         }
-        else if (context.InteractType == InteractType.OnTrigger)
+        else if (context.InteractType == InteractType.OnTriggerStay)
         {
-            InGameSystem.Context.AddAuxiliaryEnergy(AuxiliaryContain);
+            InGameSystem.Context.AddAuxiliaryEnergy(AuxiliaryContain * Time.deltaTime);
         }
     }
 }

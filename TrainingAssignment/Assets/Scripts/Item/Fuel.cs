@@ -10,7 +10,7 @@ public class Fuel : MonoBehaviour, IInteractable
     /// </summary>
     private bool _isCollectable = true;
 
-    InteractType IInteractable.Type => InteractType.OnTrigger;
+    InteractType IInteractable.Type => InteractType.OnTriggerEnter;
     public static int Content => InGameSystem.Instance.CurrentStageSetting.FuelContent;
 
     private void Start()
@@ -29,7 +29,7 @@ public class Fuel : MonoBehaviour, IInteractable
     /// <param name="context"></param>
     public void Interact(InteractionContext context)
     {
-        if (context.InteractType == InteractType.OnTrigger)
+        if (context.InteractType == InteractType.OnTriggerEnter)
         {
             context.Inventory.ChatchFuel();
             FuelManager.Instance.RegisterUnActiveFuel(this);
