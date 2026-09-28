@@ -18,9 +18,9 @@ namespace PageController
 
         public override void Setup()
         {
-
             _context = new ResultContext()
             {
+                ResultType = Type,
                 OnOpenTitleButtlonClick = OpenTitle,
                 OnRestartInGameButtonClick = RestartInGame,
             };

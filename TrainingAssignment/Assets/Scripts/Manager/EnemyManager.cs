@@ -5,7 +5,13 @@ public class EnemyManager : MonoBehaviour
 {
     private class EnemyData
     {
+        /// <summary>
+        /// エネミーオブジェクト
+        /// </summary>
         public Enemy Enemy { get; init; }
+        /// <summary>
+        /// 活動再開タイマー
+        /// </summary>
         public float RespawnTimer { get; set; }
     }
     public static EnemyManager Instance { get; private set; }
@@ -19,6 +25,10 @@ public class EnemyManager : MonoBehaviour
         Instance = this;
     }
 
+    /// <summary>
+    /// エネミーオブジェクトをアクティブ化
+    /// </summary>
+    /// <param name="isActive"></param>
     public void ActivateEnemys(bool isActive)
     {
         foreach (var enemyData in _respawnItems)
@@ -27,6 +37,10 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 管理するエネミーオブジェクトを登録
+    /// </summary>
+    /// <param name="enemy"></param>
     public void Register(Enemy enemy)
     {
         _respawnItems.Add(

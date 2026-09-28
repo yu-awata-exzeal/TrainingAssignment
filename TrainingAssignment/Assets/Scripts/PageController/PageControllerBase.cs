@@ -30,8 +30,14 @@ namespace PageController
         private TPage _page;
         protected TContext _context;
 
+        /// <summary>
+        /// ページ名
+        /// </summary>
         public abstract string Name { get; }
 
+        /// <summary>
+        /// ぷれはぶのPath
+        /// </summary>
         public string PrefabPath => $"Prefabs/Page/{Name}";
 
         public abstract void Setup();

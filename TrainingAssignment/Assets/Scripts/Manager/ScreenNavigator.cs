@@ -24,6 +24,10 @@ namespace Manager
             Instance = this;
         }
 
+        /// <summary>
+        /// ページ遷移処理
+        /// </summary>
+        /// <param name="controller"></param>
         public void ChangePage(PageControllerBase controller)
         {
             _currentPageController?.DestroyPage();

@@ -7,7 +7,9 @@ namespace Page
     /// </summary>
     public abstract class PageBase<TContext> : MonoBehaviour where TContext : IContext
     {
-
+        /// <summary>
+        /// コンテキスト
+        /// </summary>
         public TContext Context { get; protected set; }
 
         protected virtual void OnSetup() { }

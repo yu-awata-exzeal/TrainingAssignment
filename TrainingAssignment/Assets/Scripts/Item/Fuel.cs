@@ -23,9 +23,16 @@ public class Fuel : MonoBehaviour, IInteractable
 
     }
 
+    /// <summary>
+    /// インタラクト処理
+    /// </summary>
+    /// <param name="context"></param>
     public void Interact(InteractionContext context)
     {
-        context.Inventory.ChatchFuel();
-        FuelManager.Instance.RegisterUnActiveFuel(this);
+        if (context.InteractType == InteractType.OnTrigger)
+        {
+            context.Inventory.ChatchFuel();
+            FuelManager.Instance.RegisterUnActiveFuel(this);
+        }
     }
 }
