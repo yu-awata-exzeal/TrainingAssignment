@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4208186918788162577}
   - component: {fileID: 24858587780415880}
   - component: {fileID: 8644516752747559980}
-  - component: {fileID: 6661634676612784694}
+  - component: {fileID: 7417009082558656191}
   m_Layer: 5
   m_Name: ReGame
   m_TagString: Untagged
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6661634676612784694
+--- !u!114 &7417009082558656191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,9 +86,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 593432540509125361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: d973655571ed3be43b617556f491dde6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_EditorClassIdentifier: Assembly-CSharp::SEButton
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clickSE: {fileID: 8300000, guid: 92ce72482dc85794f9cd5f85ffe15330, type: 3}
 --- !u!1 &2907556567798860166
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +633,7 @@ GameObject:
   - component: {fileID: 8857275056721069990}
   - component: {fileID: 5163197880617140303}
   - component: {fileID: 8904365403842798923}
-  - component: {fileID: 3702264734165522034}
+  - component: {fileID: 5676889201333625990}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -698,7 +699,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3702264734165522034
+--- !u!114 &5676889201333625990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -707,9 +708,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8915083300604801780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: d973655571ed3be43b617556f491dde6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_EditorClassIdentifier: Assembly-CSharp::SEButton
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -754,6 +755,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clickSE: {fileID: 8300000, guid: 92ce72482dc85794f9cd5f85ffe15330, type: 3}
 --- !u!1 &8973957806785240009
 GameObject:
   m_ObjectHideFlags: 0
