@@ -15,6 +15,6 @@ MonoBehaviour:
   SurvivalTimeLimit: 300
   MaxBasePointEnergy: 100
   MaxPlayerEnergy: 50
-  EnergyConsumptionRate: 3
+  EnergyConsumptionRate: 4
   FuelContent: 25
   IsActivateEnemy: 1
