@@ -1,4 +1,5 @@
 using Manager;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ namespace Page
 {
     public class InGamePageContext : IContext
     {
+        public Action OnOpenOption { get; set; }
         public InGameContext InGameContext { get; init; }
         public StageSettings StageSetting { get; init; }
     }
@@ -42,6 +44,8 @@ namespace Page
         {
             UpdateEnergySlider();
             UpdateSurvivalTimerText();
+
+            Context.OnOpenOption.Invoke();
         }
 
         /// <summary>
