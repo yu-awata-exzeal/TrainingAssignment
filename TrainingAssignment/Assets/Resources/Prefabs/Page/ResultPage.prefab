@@ -917,6 +917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e746bbf8f086248bc314ee186fd20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Page.ResultPage
+  _firstSelectable: {fileID: 593432540509125361}
   ClearBG: {fileID: 6029146083705082682}
   GameOverBG: {fileID: 8547075291672496423}
 --- !u!224 &3181443547160841028 stripped
