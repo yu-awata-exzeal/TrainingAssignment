@@ -33,11 +33,6 @@ public class Enemy : MonoBehaviour, IInteractable
     /// </summary>
     [SerializeField]
     private float _edgeDistance = 1f;
-    /// <summary>
-    /// 行動不能状態の継続時間
-    /// </summary>
-    [SerializeField]
-    private float _incapacitatedDuration = 3.0f;
     [SerializeField]
     private int _maxHitPoint = 3;
 
@@ -48,7 +43,7 @@ public class Enemy : MonoBehaviour, IInteractable
 
     private float _incapacitatedTimer;
     private int _currentHitPoint = 0;
-    private int _energyConsumption = 10;
+    private int _energyConsumption = 5;
 
     private bool _isIncapacitated = false;
 
@@ -80,15 +75,9 @@ public class Enemy : MonoBehaviour, IInteractable
             UpdateDirection();
             UpdateMovement();
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        _currentHitPoint--;
-
-        if (_currentHitPoint == 0)
+        else
         {
-            _isIncapacitated = true;
+            _rigidbody.linearVelocity = Vector3.zero;
         }
     }
 
@@ -168,7 +157,7 @@ public class Enemy : MonoBehaviour, IInteractable
         {
             _incapacitatedTimer += Time.deltaTime;
 
-            if (_incapacitatedTimer > _incapacitatedDuration)
+            if (_incapacitatedTimer > InGameSystem.Instance.CurrentStageSetting.EnemyIncapacitatedDuration)
             {
                 _incapacitatedTimer = 0;
                 _isIncapacitated = false;
@@ -183,13 +172,22 @@ public class Enemy : MonoBehaviour, IInteractable
     /// <param name="context"></param>
     public void Interact(InteractionContext context)
     {
-        if (context.InteractType == InteractType.Raycast)
+        if (context.InteractType == InteractType.OnTriggerEnter)
         {
-            _currentHitPoint--;
-        }
-        else if (context.InteractType == InteractType.OnTriggerEnter)
-        {
-            InGameSystem.Context.AddAuxiliaryEnergy(-_energyConsumption);
+            if (context.PlayerObject as Bullet)
+            {
+                _currentHitPoint--;
+
+                if (_currentHitPoint == 0)
+                {
+                    _isIncapacitated = true;
+                }
+            }
+
+            if (!_isIncapacitated)
+            {
+                InGameSystem.Context.AddAuxiliaryEnergy(-_energyConsumption);
+            }
         }
     }
 }
