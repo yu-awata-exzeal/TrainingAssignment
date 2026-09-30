@@ -1,3 +1,4 @@
+using Manager;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -21,9 +22,10 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySE(AudioClip clip)
     {
-        if (clip == null)
+        if (clip == null
+            || OptionManager.Instance.OptionData.Se.IsMute)
             return;
 
-        _seSource.PlayOneShot(clip);
+        _seSource.PlayOneShot(clip, OptionManager.Instance.OptionData.Se.Volume);
     }
 }
