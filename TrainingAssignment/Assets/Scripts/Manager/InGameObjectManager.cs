@@ -24,9 +24,10 @@ public class InGameObjectManager
     /// ※プレハブ名はコンポーネントと同名
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
-    public void CreateObject<TComponent>() where TComponent : Component
+    public void CreateObject<TComponent>(Vector3 position, Quaternion rotation) where TComponent : Component
     {
-        var newObject = ResourceManager.InstantiatePrefab<TComponent>($"Prefabs/{typeof(TComponent).Name}");
+        var newObject
+            = ResourceManager.InstantiatePrefab<TComponent>(position, rotation, $"Prefabs/{typeof(TComponent).Name}");
         newObject.transform.parent = ScreenNavigator.Instance.WorldScope;
 
         _objectList.Add(new()

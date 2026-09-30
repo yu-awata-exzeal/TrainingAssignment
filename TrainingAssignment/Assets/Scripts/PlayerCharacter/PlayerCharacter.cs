@@ -17,6 +17,8 @@ public class PlayerCharacter : InteractionDetector
     private GameObject _muzzleFlash;
     [SerializeField]
     private Animator _animator;
+    [SerializeField]
+    private AudioClip _shootSe;
     /// <summary>
     /// 移動速度
     /// </summary>
@@ -28,7 +30,6 @@ public class PlayerCharacter : InteractionDetector
     [SerializeField]
     private float _attackRange = 30.0f;
 
-    private readonly Vector3 _startPosition = new Vector3(0.0f, 4.0f, 0.0f);
     private readonly Vector3 _cameraOffset = new Vector3(0.0f, 0.0f, -10.0f);
     private readonly float _attackIntervalTime = 2.0f;
     private readonly float _flashTime = 0.5f;
@@ -37,14 +38,11 @@ public class PlayerCharacter : InteractionDetector
 
     private float _attackIntervalTimer = 0.0f;
 
-
     private void Start()
     {
         // "Move"のリファレンスを探す
         _moveAction = InputSystem.actions.FindAction("Move");
         _rotationAction = InputSystem.actions.FindAction("Look");
-
-        transform.position = _startPosition;
     }
 
     private void Update()
@@ -93,9 +91,10 @@ public class PlayerCharacter : InteractionDetector
     {
         if (InputSystem.actions.FindAction("Attack").WasPressedThisFrame())
         {
-            CheckRaycastInteractable(transform.position, transform.up, _attackRange);
-
             _muzzleFlash.SetActive(true);
+            InGameSystem.Instance.ObjectManager
+                .CreateObject<Bullet>(_muzzleFlash.transform.position, transform.rotation);
+            AudioManager.Instance.PlaySE(_shootSe);
             _attackIntervalTimer = _attackIntervalTime;
         }
 
@@ -113,7 +112,8 @@ public class PlayerCharacter : InteractionDetector
     private void ChangeLightPower()
     {
         _frontLight.intensity
-            = InGameSystem.Context.AuxiliaryEnergy / InGameSystem.Instance.CurrentStageSetting.MaxPlayerEnergy;
+            = InGameSystem.Context.AuxiliaryEnergy
+                / InGameSystem.Instance.CurrentStageSetting.MaxPlayerEnergy;
     }
 
     /// <summary>

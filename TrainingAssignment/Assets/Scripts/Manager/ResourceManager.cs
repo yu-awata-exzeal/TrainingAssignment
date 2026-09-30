@@ -15,11 +15,11 @@ namespace Manager
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        static public T InstantiatePrefab<T>(string path) where T : Component
+        static public T InstantiatePrefab<T>(Vector3 position, Quaternion rotation, string path) where T : Component
         {
             var prefab = LoadPrefab<T>(path);
 
-            return prefab != null ? Object.Instantiate<T>(prefab) : null;
+            return prefab != null ? Object.Instantiate(prefab, position, rotation) : null;
         }
 
         /// <summary>
