@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 using PageController;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Manager
@@ -16,9 +18,7 @@ namespace Manager
         [SerializeField]
         private Transform _canvasScope;
 
-        private PageControllerBase _currentPageController = null;
-        private bool _isNextAnimation = false;
-
+        private List<PageControllerBase> _currentPageController = new();
 
         public Transform WorldScope => _worldScope;
 
@@ -34,13 +34,33 @@ namespace Manager
         /// ページ遷移処理
         /// </summary>
         /// <param name="controller"></param>
-        public async UniTask ChangePage(PageControllerBase controller)
+        public async UniTask ChangePage(PageControllerBase controller, bool isDestroyBeforePage = true)
         {
-            await PlayBeforeAnimation();
-            _currentPageController?.DestroyPage();
-            _currentPageController = controller;
-            _currentPageController.CreatePage();
-            await PlayAfterAnimation();
+            if (isDestroyBeforePage)
+            {
+                await PlayBeforeAnimation();
+
+                foreach (var pageController in _currentPageController)
+                {
+                    pageController?.DestroyPage();
+                }
+                _currentPageController.Clear();
+            }
+
+            _currentPageController.Add(controller);
+            controller.CreatePage();
+
+            if (isDestroyBeforePage)
+            {
+                await PlayAfterAnimation();
+            }
+        }
+
+        public void RemoveTopPage()
+        {
+            var topPageController = _currentPageController.LastOrDefault();
+            topPageController?.DestroyPage();
+            _currentPageController.Remove(topPageController);
         }
 
         public async UniTask PlayBeforeAnimation()
@@ -57,6 +77,11 @@ namespace Manager
             await UniTask.WaitUntil(() => _fadeAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
 
             _fadeAnimator.gameObject.SetActive(false);
+        }
+
+        public bool CheckTopPageController<TPageController>() where TPageController : PageControllerBase
+        {
+            return _currentPageController.LastOrDefault() as TPageController != null;
         }
     }
 }

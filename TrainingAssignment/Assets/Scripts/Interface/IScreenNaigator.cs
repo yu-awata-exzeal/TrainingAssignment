@@ -17,5 +17,9 @@ public interface IScreenNaigator
     /// ページ遷移処理
     /// </summary>
     /// <param name="controller"></param>
-    public UniTask ChangePage(PageControllerBase controller);
+    public UniTask ChangePage(PageControllerBase controller, bool isDestroyBeforePage = true);
+
+    public void RemoveTopPage();
+
+    public bool CheckTopPageController<TPageController>() where TPageController : PageControllerBase;
 }
