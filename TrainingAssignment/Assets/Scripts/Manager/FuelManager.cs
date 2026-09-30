@@ -14,7 +14,7 @@ namespace Manager
 
         private readonly List<ItemData> _respawnItems = new();
 
-        private readonly float IntervalTime = 5.0f;
+        private readonly float IntervalTime = 10.0f;
 
         private void Awake()
         {

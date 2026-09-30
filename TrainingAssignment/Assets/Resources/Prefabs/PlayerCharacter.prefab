@@ -140,6 +140,7 @@ MonoBehaviour:
   _frontLight: {fileID: 1023419701374798010}
   _muzzleFlash: {fileID: 4447276250501288143}
   _animator: {fileID: 6613984006429562819}
+  _shootSe: {fileID: 8300000, guid: 82e88bd0064a5a448b3e12f4aa2197e1, type: 3}
   _speed: 5
   _attackRange: 10
 --- !u!114 &5052165245671456907

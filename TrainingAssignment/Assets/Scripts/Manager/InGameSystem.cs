@@ -20,21 +20,25 @@ namespace Manager
         public void SetMainEnergy(float setValue)
         {
             MainEnergy = setValue;
+            Mathf.Clamp(AuxiliaryEnergy, 0, InGameSystem.Instance.CurrentStageSetting.MaxBasePointEnergy);
         }
 
         public void SetAuxiliaryEnergy(float setValue)
         {
             AuxiliaryEnergy = setValue;
+            Mathf.Clamp(AuxiliaryEnergy, 0, InGameSystem.Instance.CurrentStageSetting.MaxPlayerEnergy);
         }
 
         public void AddMainEnergy(float addValue)
         {
             MainEnergy += addValue;
+            Mathf.Clamp(AuxiliaryEnergy, 0, InGameSystem.Instance.CurrentStageSetting.MaxBasePointEnergy);
         }
 
         public void AddAuxiliaryEnergy(float addValue)
         {
             AuxiliaryEnergy += addValue;
+            Mathf.Clamp(AuxiliaryEnergy, 0, InGameSystem.Instance.CurrentStageSetting.MaxPlayerEnergy);
         }
 
         public void SetFuelCount(int fuelCount)
@@ -53,6 +57,7 @@ namespace Manager
         private StageSettings _currentStageSetting;
         private InGameObjectManager _objectManager;
 
+        private readonly Vector3 _playerStartPosition = new Vector3(0.0f, 4.0f, 0.0f);
         /// <summary>
         /// インゲーム内経過時間を計測するタイマー
         /// </summary>
@@ -67,6 +72,9 @@ namespace Manager
         /// インゲームのコンテキスト
         /// </summary>
         public static InGameContext Context => _context ??= new();
+
+        public InGameObjectManager ObjectManager { get; private set; }
+
         /// <summary>
         /// 現在のステージ設定
         /// </summary>
@@ -84,8 +92,9 @@ namespace Manager
             _currentStageSetting = setting;
             Reset();
             _objectManager = new();
-            _objectManager.CreateObject<PlayerCharacter>();
-            _objectManager.CreateObject<BasePoint>();
+            ObjectManager = _objectManager;
+            _objectManager.CreateObject<PlayerCharacter>(_playerStartPosition, Quaternion.identity);
+            _objectManager.CreateObject<BasePoint>(Vector3.zero, Quaternion.identity);
 
             CountTimer().Forget();
 

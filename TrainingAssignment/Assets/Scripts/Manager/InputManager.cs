@@ -28,8 +28,6 @@ namespace Manager
             // 移動処理
             var moveValue = _moveAction.ReadValue<Vector2>();
             var move = new Vector2(moveValue.x, moveValue.y) * Time.deltaTime;
-
-
         }
 
         private void UpdateRotateInput()

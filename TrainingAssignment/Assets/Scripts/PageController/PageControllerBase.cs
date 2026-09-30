@@ -48,7 +48,7 @@ namespace PageController
         public sealed override void CreatePage()
         {
             Setup();
-            _page = ResourceManager.InstantiatePrefab<TPage>(PrefabPath);
+            _page = ResourceManager.InstantiatePrefab<TPage>(Vector3.zero, Quaternion.identity, PrefabPath);
             _page.transform.SetParent(ScreenNavigator.Instance.CanvasScope, false);
             _page.Setup(_context);
         }

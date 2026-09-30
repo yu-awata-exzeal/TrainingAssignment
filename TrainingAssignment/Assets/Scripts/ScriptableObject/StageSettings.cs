@@ -8,6 +8,10 @@ public class StageSettings : ScriptableObject
     /// </summary>
     public float SurvivalTimeLimit;
     /// <summary>
+    /// 行動不能状態の継続時間
+    /// </summary>
+    public float EnemyIncapacitatedDuration;
+    /// <summary>
     /// 拠点のエネルギー量上限
     /// </summary>
     public int MaxBasePointEnergy;

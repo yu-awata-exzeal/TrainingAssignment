@@ -24,7 +24,7 @@ public class InteractionDetector : MonoBehaviour
         Interact(InteractType.OnTriggerEnter);
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         var interactable = other.GetComponent<IInteractable>();
 
@@ -47,17 +47,6 @@ public class InteractionDetector : MonoBehaviour
         }
     }
 
-    protected void CheckRaycastInteractable(Vector3 start, Vector3 direction, float range)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(start, direction, range);
-
-        if (hit.collider is IInteractable target)
-        {
-            _currentTarget = target;
-            Interact(InteractType.Raycast);
-        }
-    }
-
     /// <summary>
     /// 現在検出している対象にインタラクトする。
     /// </summary>
@@ -68,6 +57,6 @@ public class InteractionDetector : MonoBehaviour
             return;
         }
 
-        InteractionManager.Interact(_inventory, _currentTarget, type);
+        InteractionManager.Interact(_inventory, _currentTarget, this, type);
     }
 }
