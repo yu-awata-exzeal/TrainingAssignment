@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Page
 {
@@ -7,6 +8,8 @@ namespace Page
     /// </summary>
     public abstract class PageBase<TContext> : MonoBehaviour where TContext : IContext
     {
+        [SerializeField]
+        private GameObject _firstSelectable;
         /// <summary>
         /// コンテキスト
         /// </summary>
@@ -20,6 +23,11 @@ namespace Page
         {
             Context = context;
             OnSetup();
+
+            if (_firstSelectable == null)
+                return;
+
+            EventSystem.current.SetSelectedGameObject(_firstSelectable);
         }
 
     }
