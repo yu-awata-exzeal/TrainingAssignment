@@ -25,6 +25,8 @@ namespace Page
         private Slider _mainEnergyUI;
         [SerializeField]
         private Slider _subEnergyUI;
+        [SerializeField]
+        private GameObject _minimap;
 
         private readonly float _secondParMinute = 60;
         private float _minutesCounter = 0.0f;
@@ -46,6 +48,7 @@ namespace Page
             UpdateSurvivalTimerText();
 
             Context.OnOpenOption.Invoke();
+            _minimap.SetActive(Context.InGameContext.AuxiliaryEnergy > 0.0f);
         }
 
         /// <summary>
