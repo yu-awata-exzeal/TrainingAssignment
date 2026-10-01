@@ -2498,7 +2498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aaeb21c4db46b9498185f905a579edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  _seSource: {fileID: 1015123456}
+  _audioSource: {fileID: 1015123456}
 --- !u!4 &1015123458
 Transform:
   m_ObjectHideFlags: 0
@@ -3046,8 +3046,6 @@ MonoBehaviour:
     StageSetting: {fileID: 11400000, guid: 1e72321f15647aa4c80b7210dd2dc737, type: 2}
   - Type: 2
     StageSetting: {fileID: 11400000, guid: b9e3162d39cc5cd4e931b85a2a50a6c3, type: 2}
-  _worldTransform: {fileID: 621565062}
-  _canvasTransform: {fileID: 953550367}
   _mainCamera: {fileID: 407632113}
 --- !u!4 &1501272940
 Transform:
