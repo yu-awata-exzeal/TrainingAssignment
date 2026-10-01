@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Manager
 {
-    public class ScreenNavigator : MonoBehaviour, IScreenNaigator
+    public class ScreenNavigator : MonoBehaviour, IScreenNavigator
     {
-        public static IScreenNaigator Instance { get; private set; }
+        public static IScreenNavigator Instance { get; private set; }
 
         [SerializeField]
         private Animator _fadeAnimator;
@@ -18,7 +18,7 @@ namespace Manager
         [SerializeField]
         private Transform _canvasScope;
 
-        private List<PageControllerBase> _currentPageController = new();
+        private List<PageControllerBase> _currentPageControllerList = new();
 
         public Transform WorldScope => _worldScope;
 
@@ -34,23 +34,23 @@ namespace Manager
         /// ページ遷移処理
         /// </summary>
         /// <param name="controller"></param>
-        public async UniTask ChangePage(PageControllerBase controller, bool isDestroyBeforePage = true)
+        public async UniTask ChangePage(PageControllerBase controller, bool destroyPreviousPage = true)
         {
-            if (isDestroyBeforePage)
+            if (destroyPreviousPage)
             {
                 await PlayBeforeAnimation();
 
-                foreach (var pageController in _currentPageController)
+                foreach (var pageController in _currentPageControllerList)
                 {
                     pageController?.DestroyPage();
                 }
-                _currentPageController.Clear();
+                _currentPageControllerList.Clear();
             }
 
-            _currentPageController.Add(controller);
+            _currentPageControllerList.Add(controller);
             controller.CreatePage();
 
-            if (isDestroyBeforePage)
+            if (destroyPreviousPage)
             {
                 await PlayAfterAnimation();
             }
@@ -58,19 +58,19 @@ namespace Manager
 
         public void RemoveTopPage()
         {
-            var topPageController = _currentPageController.LastOrDefault();
+            var topPageController = _currentPageControllerList.LastOrDefault();
             topPageController?.DestroyPage();
-            _currentPageController.Remove(topPageController);
+            _currentPageControllerList.Remove(topPageController);
         }
 
-        public async UniTask PlayBeforeAnimation()
+        private async UniTask PlayBeforeAnimation()
         {
             _fadeAnimator.gameObject.SetActive(true);
             _fadeAnimator.Play("FadeIn");
             await UniTask.WaitUntil(() => _fadeAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         }
 
-        public async UniTask PlayAfterAnimation()
+        private async UniTask PlayAfterAnimation()
         {
             _fadeAnimator.Play("FadeOut");
 
@@ -81,7 +81,7 @@ namespace Manager
 
         public bool CheckTopPageController<TPageController>() where TPageController : PageControllerBase
         {
-            return _currentPageController.LastOrDefault() as TPageController != null;
+            return _currentPageControllerList.LastOrDefault() as TPageController != null;
         }
     }
 }

@@ -26,9 +26,9 @@ public class StageSettings : ScriptableObject
     /// <summary>
     /// 燃料アイテムのエネルギー回復量
     /// </summary>
-    public int FuelContent;
+    public int FuelEnergyAmount;
     /// <summary>
     /// 敵が出現するか
     /// </summary>
-    public bool IsActivateEnemy;
+    public bool EnableEnemy;
 }

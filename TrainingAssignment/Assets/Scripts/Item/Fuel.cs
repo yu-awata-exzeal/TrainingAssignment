@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Fuel : MonoBehaviour, IInteractable
 {
-    public static int Content => InGameSystem.Instance.CurrentStageSetting.FuelContent;
+    public static int Content => InGameSystem.Instance.CurrentStageSetting.FuelEnergyAmount;
 
     /// <summary>
     /// インタラクト処理

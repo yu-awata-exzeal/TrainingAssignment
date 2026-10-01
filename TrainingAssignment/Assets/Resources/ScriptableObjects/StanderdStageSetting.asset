@@ -17,5 +17,5 @@ MonoBehaviour:
   MaxBasePointEnergy: 100
   MaxPlayerEnergy: 50
   EnergyConsumptionRate: 3
-  FuelContent: 40
-  IsActivateEnemy: 1
+  FuelEnergyAmount: 25
+  EnableEnemy: 0

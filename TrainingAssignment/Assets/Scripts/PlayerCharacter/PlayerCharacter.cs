@@ -23,15 +23,10 @@ public class PlayerCharacter : InteractionDetector
     /// 移動速度
     /// </summary>
     [SerializeField]
-    private float _speed = 5.0f;
-    /// <summary>
-    /// 攻撃距離
-    /// </summary>
-    [SerializeField]
-    private float _attackRange = 30.0f;
+    private float _moveSpeed = 5.0f;
 
     private readonly Vector3 _cameraOffset = new Vector3(0.0f, 0.0f, -10.0f);
-    private readonly float _attackIntervalTime = 2.0f;
+    private readonly float _attackInterval = 2.0f;
     private readonly float _flashTime = 0.5f;
     private InputAction _moveAction;
     private InputAction _rotationAction;
@@ -47,7 +42,7 @@ public class PlayerCharacter : InteractionDetector
 
     private void Update()
     {
-        ChangeLightPower();
+        UpdateLightIntensity();
     }
 
     private void FixedUpdate()
@@ -63,9 +58,8 @@ public class PlayerCharacter : InteractionDetector
     /// </summary>
     private void Move()
     {
-        // 移動処理
         var moveValue = _moveAction.ReadValue<Vector2>();
-        var move = new Vector2(moveValue.x, moveValue.y) * _speed * Time.deltaTime;
+        var move = new Vector2(moveValue.x, moveValue.y) * _moveSpeed * Time.deltaTime;
         transform.Translate(move);
 
         GameScene.MainCamera.transform.position = transform.position + _cameraOffset;
@@ -73,6 +67,9 @@ public class PlayerCharacter : InteractionDetector
         _animator.SetBool("IsMove", moveValue.magnitude > 0.0f);
     }
 
+    /// <summary>
+    /// 回転処理
+    /// </summary>
     private void Rotate()
     {
         var rotation = transform.rotation;
@@ -95,21 +92,21 @@ public class PlayerCharacter : InteractionDetector
             InGameSystem.Instance.ObjectManager
                 .CreateObject<Bullet>(_muzzleFlash.transform.position, transform.rotation);
             AudioManager.Instance.PlaySE(_shootSe);
-            _attackIntervalTimer = _attackIntervalTime;
+            _attackIntervalTimer = _attackInterval;
         }
 
         if (_attackIntervalTimer > 0.0f)
         {
             _attackIntervalTimer -= Time.deltaTime;
 
-            if (_attackIntervalTimer < _attackIntervalTime - _flashTime)
+            if (_attackIntervalTimer < _attackInterval - _flashTime)
             {
                 _muzzleFlash.SetActive(false);
             }
         }
     }
 
-    private void ChangeLightPower()
+    private void UpdateLightIntensity()
     {
         _frontLight.intensity
             = InGameSystem.Context.AuxiliaryEnergy
