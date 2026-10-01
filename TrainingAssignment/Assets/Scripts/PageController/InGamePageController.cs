@@ -19,6 +19,9 @@ namespace PageController
             InGameSystem.Instance.Setup(_context.StageSetting);
         }
 
+        /// <summary>
+        /// オプションページを開く
+        /// </summary>
         public void OpenOption()
         {
             if (ScreenNavigator.Instance.CheckTopPageController<OptionPageController>())

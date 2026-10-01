@@ -4,7 +4,6 @@ using UnityEngine;
 public class BasePoint : MonoBehaviour, IInteractable
 {
     private int AuxiliaryContain = 5;
-    InteractType IInteractable.Type => InteractType.ButtonInput;
 
     /// <summary>
     /// インタラクト処理

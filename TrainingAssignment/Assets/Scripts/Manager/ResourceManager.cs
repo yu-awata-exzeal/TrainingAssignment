@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Manager
 {
     /// <summary>
-    ///　
+    ///　リソース生成・管理クラス
     /// </summary>
     public class ResourceManager
     {

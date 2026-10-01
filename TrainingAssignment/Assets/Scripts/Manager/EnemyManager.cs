@@ -16,6 +16,7 @@ namespace Manager
             /// </summary>
             public float RespawnTimer { get; set; }
         }
+
         public static EnemyManager Instance { get; private set; }
 
         private readonly List<EnemyData> _respawnItems = new();

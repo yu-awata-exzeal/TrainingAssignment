@@ -5,7 +5,6 @@ public enum InteractType
     ButtonInput,
     OnTriggerEnter,
     OnTriggerStay,
-    Raycast,
 }
 
 /// <summary>
@@ -13,7 +12,5 @@ public enum InteractType
 /// </summary>
 public interface IInteractable
 {
-    InteractType Type { get; }
-
     void Interact(InteractionContext context);
 }
