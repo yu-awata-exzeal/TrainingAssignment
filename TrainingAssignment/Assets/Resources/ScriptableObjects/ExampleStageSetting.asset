@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ExampleStageSetting
   m_EditorClassIdentifier: Assembly-CSharp::StageSettings
   SurvivalTimeLimit: 60
+  EnemyIncapacitatedDuration: 0
   MaxBasePointEnergy: 100
   MaxPlayerEnergy: 50
   EnergyConsumptionRate: 5
-  FuelContent: 30
+  FuelEnergyAmount: 30
+  EnableEnemy: 0

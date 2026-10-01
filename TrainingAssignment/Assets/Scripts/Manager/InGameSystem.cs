@@ -119,7 +119,7 @@ namespace Manager
             Context.SetFuelCount(0);
             _inGameTimer = _currentStageSetting.SurvivalTimeLimit;
             _isInGameEnded = false;
-            EnemyManager.Instance.ActivateEnemies(_currentStageSetting.IsActivateEnemy);
+            EnemyManager.Instance.ActivateEnemies(_currentStageSetting.EnableEnemy);
         }
 
         /// <summary>

@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using PageController;
 using UnityEngine;
 
-public interface IScreenNaigator
+public interface IScreenNavigator
 {
     /// <summary>
     /// オブジェクトをぶら下げる親
