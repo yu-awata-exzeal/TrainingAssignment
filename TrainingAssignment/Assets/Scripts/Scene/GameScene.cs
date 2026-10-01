@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// シーン駆動を行うクラス
+/// ゲームシーンを管理するクラス
 /// </summary>
 public class GameScene : MonoBehaviour
 {
@@ -18,14 +18,6 @@ public class GameScene : MonoBehaviour
 
     [SerializeField]
     private List<StageSettingData> _stageSettingList;
-
-    [SerializeField]
-    private Transform _worldTransform = null;
-    /// <summary>
-    /// UICanvas
-    /// </summary>
-    [SerializeField]
-    private Transform _canvasTransform = null;
     [SerializeField]
     private Camera _mainCamera = null;
 

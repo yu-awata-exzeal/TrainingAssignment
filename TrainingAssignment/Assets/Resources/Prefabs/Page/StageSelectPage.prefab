@@ -394,7 +394,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 961910408293536996}
         m_TargetAssemblyTypeName: Page.StageSelectPage, Assembly-CSharp
-        m_MethodName: OpenStanderdStage
+        m_MethodName: OpenStandardStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

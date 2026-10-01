@@ -918,8 +918,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Page.ResultPage
   _firstSelectable: {fileID: 593432540509125361}
-  ClearBG: {fileID: 6029146083705082682}
-  GameOverBG: {fileID: 8547075291672496423}
+  _clearBG: {fileID: 6029146083705082682}
+  _gameOverBG: {fileID: 8547075291672496423}
 --- !u!224 &3181443547160841028 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 391074455563224234, guid: 5a26f8b7d1dccdb409a7febb59f97652, type: 3}

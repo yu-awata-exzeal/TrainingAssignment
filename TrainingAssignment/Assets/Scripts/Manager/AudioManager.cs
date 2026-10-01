@@ -7,7 +7,7 @@ namespace Manager
         public static AudioManager Instance { get; private set; }
 
         [SerializeField]
-        private AudioSource _seSource;
+        private AudioSource _audioSource;
 
         private void Awake()
         {
@@ -22,16 +22,16 @@ namespace Manager
         }
 
         /// <summary>
-        /// w’è‚ÌAudioClip‚ğÄ¶‚·‚é
+        /// w’è‚µ‚½AudioClip‚ğÄ¶‚·‚é
         /// </summary>
-        /// <param name="clip"></param>
+        /// <param name="clip">Ä¶‚·‚éAudioClip</param>
         public void PlaySE(AudioClip clip)
         {
             if (clip == null
                 || OptionManager.Instance.OptionData.Se.IsMute)
                 return;
 
-            _seSource.PlayOneShot(clip, OptionManager.Instance.OptionData.Se.Volume);
+            _audioSource.PlayOneShot(clip, OptionManager.Instance.OptionData.Se.Volume);
         }
     }
 }

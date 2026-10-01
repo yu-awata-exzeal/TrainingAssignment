@@ -15,7 +15,7 @@ public class PlayerInventory : MonoBehaviour
     /// <summary>
     /// 燃料アイテムを使用
     /// </summary>
-    /// <param name="fuel"> 使用した燃料 </param>
+    /// <param name="fuelContain"> 燃料の回復量 </param>
     /// <returns></returns>
     public bool TryUseFuel(out int fuelContain)
     {
@@ -35,7 +35,7 @@ public class PlayerInventory : MonoBehaviour
     /// <summary>
     /// 燃料アイテムを補充
     /// </summary>
-    public void ChatchFuel()
+    public void CollectFuel()
     {
         if (!itemList.ContainsKey(nameof(Fuel)))
         {

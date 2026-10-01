@@ -7,7 +7,7 @@ public class Bullet : InteractionDetector
     [SerializeField]
     private float _power = 100.0f;
 
-    private static readonly float _activeTime = 10.0f;
+    private readonly float _activeTime = 10.0f;
     private float _timer = 0.0f;
 
     private void Start()

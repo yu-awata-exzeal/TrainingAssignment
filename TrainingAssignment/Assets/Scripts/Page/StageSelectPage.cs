@@ -5,7 +5,7 @@ namespace Page
     public class StageSelectContext : IContext
     {
         public Action OnSelectEasyStageClick { get; init; }
-        public Action OnSelectStanderdStageClick { get; init; }
+        public Action OnSelectStandardStageClick { get; init; }
         public Action OnSelectHardStageClick { get; init; }
     }
 
@@ -22,9 +22,9 @@ namespace Page
         /// <summary>
         /// Standerdステージのインゲーム画面に遷移(ボタンUIイベント用)
         /// </summary>
-        public void OpenStanderdStage()
+        public void OpenStandardStage()
         {
-            Context.OnSelectStanderdStageClick.Invoke();
+            Context.OnSelectStandardStageClick.Invoke();
         }
 
         /// <summary>

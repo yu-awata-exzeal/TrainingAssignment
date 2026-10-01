@@ -3,8 +3,8 @@ using Manager;
 public enum InteractType
 {
     ButtonInput,
-    OnTriggerEnter,
-    OnTriggerStay,
+    TriggerEnter,
+    TriggerStay,
 }
 
 /// <summary>

@@ -11,7 +11,6 @@ namespace PageController
 
     public class ResultPageController : PageControllerBase<ResultPage, ResultContext>
     {
-
         public override string Name => "ResultPage";
 
         public ResultType Type { get; init; }
@@ -21,8 +20,8 @@ namespace PageController
             _context = new ResultContext()
             {
                 ResultType = Type,
-                OnOpenTitleButtlonClick = OpenTitle,
-                OnRestartInGameButtonClick = RestartInGame,
+                OnOpenTitleClick = OpenTitle,
+                OnRestartInGameClick = RestartInGame,
             };
         }
 
@@ -40,5 +39,4 @@ namespace PageController
             }));
         }
     }
-
 }

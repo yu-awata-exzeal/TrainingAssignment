@@ -13,26 +13,26 @@ namespace PageController
             {
                 OnSelectEasyStageClick = OnSelectEasyStage,
                 OnSelectHardStageClick = OnSelectHardStage,
-                OnSelectStanderdStageClick = OnSelectStanderdStage,
+                OnSelectStandardStageClick = OnSelectStandardStage,
             };
         }
 
         private void OnSelectEasyStage()
         {
-            OnOpenStageSelect(GameScene.StageDataList.Find(x => x.Type == GameStageType.Easy).StageSetting);
+            OpenInGame(GameScene.StageDataList.Find(x => x.Type == GameStageType.Easy).StageSetting);
         }
 
-        private void OnSelectStanderdStage()
+        private void OnSelectStandardStage()
         {
-            OnOpenStageSelect(GameScene.StageDataList.Find(x => x.Type == GameStageType.Standerd).StageSetting);
+            OpenInGame(GameScene.StageDataList.Find(x => x.Type == GameStageType.Standard).StageSetting);
         }
 
         private void OnSelectHardStage()
         {
-            OnOpenStageSelect(GameScene.StageDataList.Find(x => x.Type == GameStageType.Hard).StageSetting);
+            OpenInGame(GameScene.StageDataList.Find(x => x.Type == GameStageType.Hard).StageSetting);
         }
 
-        private void OnOpenStageSelect(StageSettings setting)
+        private void OpenInGame(StageSettings setting)
         {
             var controller = new InGamePageController(
                 new InGamePageContext()

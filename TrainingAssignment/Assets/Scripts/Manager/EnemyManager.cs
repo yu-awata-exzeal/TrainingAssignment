@@ -19,9 +19,9 @@ namespace Manager
 
         public static EnemyManager Instance { get; private set; }
 
-        private readonly List<EnemyData> _respawnItems = new();
+        private readonly List<EnemyData> _enemyList = new();
 
-        private readonly float IntervalTime = 2.0f; /*InGameSystem.Instance.CurrentStageSetting.*/
+        private readonly float _respawnInterval = 2.0f;
 
         private void Awake()
         {
@@ -32,9 +32,9 @@ namespace Manager
         /// エネミーオブジェクトをアクティブ化
         /// </summary>
         /// <param name="isActive"></param>
-        public void ActivateEnemys(bool isActive)
+        public void ActivateEnemies(bool isActive)
         {
-            foreach (var enemyData in _respawnItems)
+            foreach (var enemyData in _enemyList)
             {
                 enemyData.Enemy.gameObject.SetActive(isActive);
             }
@@ -46,11 +46,11 @@ namespace Manager
         /// <param name="enemy"></param>
         public void Register(Enemy enemy)
         {
-            _respawnItems.Add(
+            _enemyList.Add(
                 new EnemyData()
                 {
                     Enemy = enemy,
-                    RespawnTimer = IntervalTime,
+                    RespawnTimer = _respawnInterval,
                 }
             );
             enemy.gameObject.SetActive(false);

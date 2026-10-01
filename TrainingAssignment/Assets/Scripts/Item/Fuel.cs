@@ -11,13 +11,13 @@ public class Fuel : MonoBehaviour, IInteractable
     /// <param name="context"></param>
     public void Interact(InteractionContext context)
     {
-        if (context.InteractType == InteractType.OnTriggerEnter)
+        if (context.InteractType == InteractType.TriggerEnter)
         {
             if (context.Inventory == null)
                 return;
 
-            context.Inventory?.ChatchFuel();
-            FuelManager.Instance.RegisterUnActiveFuel(this);
+            context.Inventory.CollectFuel();
+            FuelManager.Instance.RegisterInactiveFuel(this);
         }
     }
 }

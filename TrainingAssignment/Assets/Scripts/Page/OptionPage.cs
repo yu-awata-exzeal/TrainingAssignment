@@ -7,14 +7,14 @@ namespace Page
 {
     public class OptionContext : IContext
     {
-        public OptionData optionData { get; init; }
+        public OptionData OptionData { get; init; }
         public Action<float> OnUpdateSeVolume { get; init; }
         public Action<bool> OnUpdateSeMute { get; init; }
         public Action<float> OnUpdateMouseSensitivity { get; init; }
         public Action OnRevertOption { get; init; }
         public Action OnResetOption { get; init; }
         public Action OnSaveOption { get; init; }
-        public Action OnDestroy { get; init; }
+        public Action OnClose { get; init; }
     }
 
     public class OptionPage : PageBase<OptionContext>
@@ -24,7 +24,7 @@ namespace Page
         [SerializeField]
         private Slider _mouseSensitivity;
         [SerializeField]
-        private Toggle _seIsMute;
+        private Toggle _seIsMuteToggle;
 
         protected override void OnSetup()
         {
@@ -32,9 +32,9 @@ namespace Page
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
 
-            _seVolume.value = Context.optionData.Se.Volume;
-            _seIsMute.isOn = Context.optionData.Se.IsMute;
-            _mouseSensitivity.value = Context.optionData.MouseSensivity;
+            _seVolume.value = Context.OptionData.Se.Volume;
+            _seIsMuteToggle.isOn = Context.OptionData.Se.IsMute;
+            _mouseSensitivity.value = Context.OptionData.MouseSensitivity;
         }
 
         private void OnDestroy()
@@ -42,7 +42,7 @@ namespace Page
             Time.timeScale = 1.0f;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            Context.OnDestroy.Invoke();
+            Context.OnClose.Invoke();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Page
         }
 
         /// <summary>
-        /// Seミューーと設定を更新(トグルUIイベント用)
+        /// Seミュート設定を更新(トグルUIイベント用)
         /// </summary>
         public void UpdateSeMute(bool value)
         {
@@ -70,7 +70,7 @@ namespace Page
         }
 
         /// <summary>
-        /// Seミューーと設定を更新(トグルUIイベント用)
+        /// 変更した設定をセーブ(トグルUIイベント用)
         /// </summary>
         public void SaveOption()
         {
@@ -78,7 +78,7 @@ namespace Page
         }
 
         /// <summary>
-        /// Seミューーと設定を更新(トグルUIイベント用)
+        /// S変更前の設定に戻す(トグルUIイベント用)
         /// </summary>
         public void RevertOption()
         {
@@ -86,7 +86,7 @@ namespace Page
         }
 
         /// <summary>
-        /// Seミュート設定を更新(トグルUIイベント用)
+        /// 初期設定に戻す(トグルUIイベント用)
         /// </summary>
         public void ResetOption()
         {

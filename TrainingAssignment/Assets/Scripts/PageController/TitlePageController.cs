@@ -11,7 +11,7 @@ namespace PageController
         {
             _context = new TitleContext()
             {
-                OnOpenStageSelectButtonClick = OnOpenStageSelect,
+                OnOpenStageSelectClick = OnOpenStageSelect,
             };
         }
 
