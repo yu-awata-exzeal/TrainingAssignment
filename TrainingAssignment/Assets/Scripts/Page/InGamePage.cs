@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace Page
 {
+    /// <summary>
+    /// インゲームUIのコンテキスト
+    /// </summary>
     public class InGamePageContext : IContext
     {
         public Action OnOpenOption { get; set; }
@@ -60,7 +63,7 @@ namespace Page
 
             _itemCountText.text = InGameSystem.Context.FuelCount.ToString();
             _minutesText.text = _minutesCounter.ToString("0");
-            _secondText.text = _secondsCounter.ToString("0");
+            _secondText.text = _secondsCounter.ToString("00");
 
             if (_secondsCounter >= _secondParMinute - 1)
             {

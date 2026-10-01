@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Fuel : MonoBehaviour, IInteractable
 {
-    InteractType IInteractable.Type => InteractType.OnTriggerEnter;
     public static int Content => InGameSystem.Instance.CurrentStageSetting.FuelContent;
 
     /// <summary>

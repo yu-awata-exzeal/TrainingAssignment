@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Manager
 {
+    /// <summary>
+    /// 燃料アイテムの管理クラス
+    /// </summary>
     public class FuelManager : MonoBehaviour
     {
         private class ItemData

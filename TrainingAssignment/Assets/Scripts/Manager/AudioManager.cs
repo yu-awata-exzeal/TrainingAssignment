@@ -1,31 +1,37 @@
-using Manager;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+namespace Manager
 {
-    public static AudioManager Instance { get; private set; }
-
-    [SerializeField]
-    private AudioSource _seSource;
-
-    private void Awake()
+    public class AudioManager : MonoBehaviour
     {
-        if (Instance != null)
+        public static AudioManager Instance { get; private set; }
+
+        [SerializeField]
+        private AudioSource _seSource;
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        /// <summary>
+        /// éwíËÇÃAudioClipÇçƒê∂Ç∑ÇÈ
+        /// </summary>
+        /// <param name="clip"></param>
+        public void PlaySE(AudioClip clip)
+        {
+            if (clip == null
+                || OptionManager.Instance.OptionData.Se.IsMute)
+                return;
 
-    public void PlaySE(AudioClip clip)
-    {
-        if (clip == null
-            || OptionManager.Instance.OptionData.Se.IsMute)
-            return;
-
-        _seSource.PlayOneShot(clip, OptionManager.Instance.OptionData.Se.Volume);
+            _seSource.PlayOneShot(clip, OptionManager.Instance.OptionData.Se.Volume);
+        }
     }
 }

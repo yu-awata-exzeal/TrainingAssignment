@@ -47,8 +47,6 @@ public class Enemy : MonoBehaviour, IInteractable
 
     private bool _isIncapacitated = false;
 
-    public InteractType Type => InteractType.Raycast;
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -151,6 +149,9 @@ public class Enemy : MonoBehaviour, IInteractable
             position.y > bounds.max.y - _edgeDistance;
     }
 
+    /// <summary>
+    /// 活性状態と非活性状態の遷移処理
+    /// </summary>
     private void ChangeIncapacitated()
     {
         if (_isIncapacitated)
