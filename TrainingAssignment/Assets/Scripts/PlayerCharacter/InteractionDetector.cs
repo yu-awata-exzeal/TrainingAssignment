@@ -21,7 +21,7 @@ public class InteractionDetector : MonoBehaviour
         }
 
         _currentTarget = interactable;
-        Interact(InteractType.OnTriggerEnter);
+        Interact(InteractType.TriggerEnter);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -34,7 +34,7 @@ public class InteractionDetector : MonoBehaviour
         }
 
         _currentTarget = interactable;
-        Interact(InteractType.OnTriggerStay);
+        Interact(InteractType.TriggerStay);
     }
 
     private void OnTriggerExit2D(Collider2D other)

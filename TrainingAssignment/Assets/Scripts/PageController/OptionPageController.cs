@@ -11,20 +11,20 @@ namespace PageController
         {
             _context = new OptionContext()
             {
-                optionData = OptionManager.Instance.OptionData,
+                OptionData = OptionManager.Instance.OptionData,
                 OnUpdateSeVolume = OptionManager.Instance.SetSeVolume,
                 OnUpdateSeMute = OptionManager.Instance.SetSeMute,
                 OnUpdateMouseSensitivity = OptionManager.Instance.SetMouseSensitivity,
                 OnRevertOption = OnRevertButtonClick,
                 OnResetOption = OnResetButtonClick,
                 OnSaveOption = OnSaveButtonClick,
-                OnDestroy = ScreenNavigator.Instance.RemoveTopPage,
+                OnClose = ScreenNavigator.Instance.RemoveTopPage,
             };
         }
 
         private void OnRevertButtonClick()
         {
-            OptionManager.Instance.ReverOption();
+            OptionManager.Instance.RevertOption();
             DestroyPage();
         }
 
@@ -33,9 +33,10 @@ namespace PageController
             OptionManager.Instance.ResetOption();
             DestroyPage();
         }
+
         private void OnSaveButtonClick()
         {
-            OptionManager.Instance.Save();
+            OptionManager.Instance.SaveOption();
             DestroyPage();
         }
     }

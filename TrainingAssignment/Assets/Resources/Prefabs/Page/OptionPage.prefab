@@ -2716,4 +2716,4 @@ MonoBehaviour:
   _firstSelectable: {fileID: 1583594791178356042}
   _seVolume: {fileID: 2806450403705700585}
   _mouseSensitivity: {fileID: 30074990563514396}
-  _seIsMute: {fileID: 1284983720263167419}
+  _seIsMuteToggle: {fileID: 1284983720263167419}

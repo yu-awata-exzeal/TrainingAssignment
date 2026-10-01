@@ -23,26 +23,27 @@ namespace Page
         [SerializeField]
         private TextMeshProUGUI _minutesText;
         [SerializeField]
-        private TextMeshProUGUI _secondText;
+        private TextMeshProUGUI _secondsText;
         [SerializeField]
-        private Slider _mainEnergyUI;
+        private Slider _mainEnergy;
         [SerializeField]
-        private Slider _subEnergyUI;
+        private Slider _subEnergy;
         [SerializeField]
         private GameObject _minimap;
 
-        private readonly float _secondParMinute = 60;
-        private float _minutesCounter = 0.0f;
-        private float _secondsCounter = 0.0f;
-        private bool _subMinute = true;
+        private readonly float _secondsParMinute = 60;
+        private float _minutes = 0.0f;
+        private float _seconds = 0.0f;
+        private bool _isMinuteDecremented = true;
 
         protected override void OnSetup()
         {
-            _mainEnergyUI.maxValue = Context.InGameContext.MainEnergy;
-            _subEnergyUI.maxValue = Context.InGameContext.AuxiliaryEnergy;
+            _mainEnergy.maxValue = Context.InGameContext.MainEnergy;
+            _subEnergy.maxValue = Context.InGameContext.AuxiliaryEnergy;
             _itemCountText.text = InGameSystem.Context.FuelCount.ToString();
-            _minutesCounter = InGameSystem.Instance.SurvivaleTimer / _secondParMinute;
-            _secondsCounter = InGameSystem.Instance.SurvivaleTimer % _secondParMinute;
+
+            _minutes = InGameSystem.Instance.SurvivalTimer / _secondsParMinute;
+            _seconds = InGameSystem.Instance.SurvivalTimer % _secondsParMinute;
         }
 
         private void Update()
@@ -50,7 +51,8 @@ namespace Page
             UpdateEnergySlider();
             UpdateSurvivalTimerText();
 
-            Context.OnOpenOption.Invoke();
+            Context.OnOpenOption?.Invoke();
+            _itemCountText.text = InGameSystem.Context.FuelCount.ToString();
             _minimap.SetActive(Context.InGameContext.AuxiliaryEnergy > 0.0f);
         }
 
@@ -59,30 +61,29 @@ namespace Page
         /// </summary>
         private void UpdateSurvivalTimerText()
         {
-            _secondsCounter = InGameSystem.Instance.SurvivaleTimer % _secondParMinute;
+            _seconds = InGameSystem.Instance.SurvivalTimer % _secondsParMinute;
 
-            _itemCountText.text = InGameSystem.Context.FuelCount.ToString();
-            _minutesText.text = _minutesCounter.ToString("0");
-            _secondText.text = _secondsCounter.ToString("00");
+            _minutesText.text = _minutes.ToString("0");
+            _secondsText.text = _seconds.ToString("00");
 
-            if (_secondsCounter >= _secondParMinute - 1)
+            if (_seconds >= _secondsParMinute - 1)
             {
-                if (_subMinute)
+                if (_isMinuteDecremented)
                 {
-                    _minutesCounter--;
-                    _subMinute = false;
+                    _minutes--;
+                    _isMinuteDecremented = false;
                 }
             }
             else
             {
-                _subMinute = true;
+                _isMinuteDecremented = true;
             }
         }
 
         private void UpdateEnergySlider()
         {
-            _mainEnergyUI.value = Context.InGameContext.MainEnergy;
-            _subEnergyUI.value = Context.InGameContext.AuxiliaryEnergy;
+            _mainEnergy.value = Context.InGameContext.MainEnergy;
+            _subEnergy.value = Context.InGameContext.AuxiliaryEnergy;
         }
     }
 }

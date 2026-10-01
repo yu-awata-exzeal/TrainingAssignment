@@ -8,16 +8,16 @@ namespace Manager
     /// </summary>
     public class FuelManager : MonoBehaviour
     {
-        private class ItemData
+        private class FuelData
         {
             public Fuel Fuel { get; init; }
             public float RespawnTimer { get; set; }
         }
         public static FuelManager Instance { get; private set; }
 
-        private readonly List<ItemData> _respawnItems = new();
+        private readonly List<FuelData> _inactiveFuelList = new();
 
-        private readonly float IntervalTime = 10.0f;
+        private readonly float _respawnInterval = 10.0f;
 
         private void Awake()
         {
@@ -26,11 +26,9 @@ namespace Manager
 
         private void Update()
         {
-            float currentTime = Time.time;
-
-            for (int i = _respawnItems.Count - 1; i >= 0; i--)
+            for (int i = _inactiveFuelList.Count - 1; i >= 0; i--)
             {
-                var fuelData = _respawnItems[i];
+                var fuelData = _inactiveFuelList[i];
 
                 if (fuelData.RespawnTimer > 0.0f)
                 {
@@ -40,7 +38,7 @@ namespace Manager
 
                 fuelData.Fuel.gameObject.SetActive(true);
 
-                _respawnItems.Remove(fuelData);
+                _inactiveFuelList.Remove(fuelData);
             }
         }
 
@@ -48,13 +46,13 @@ namespace Manager
         /// 非アクティブとなるアイテムを登録
         /// </summary>
         /// <param name="item"></param>
-        public void RegisterUnActiveFuel(Fuel item)
+        public void RegisterInactiveFuel(Fuel item)
         {
-            _respawnItems.Add(
-                new ItemData()
+            _inactiveFuelList.Add(
+                new FuelData()
                 {
                     Fuel = item,
-                    RespawnTimer = IntervalTime,
+                    RespawnTimer = _respawnInterval,
                 }
             );
             item.gameObject.SetActive(false);

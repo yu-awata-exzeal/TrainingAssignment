@@ -7,7 +7,7 @@ namespace Manager
     public enum GameStageType
     {
         Easy,
-        Standerd,
+        Standard,
         Hard,
     }
 
@@ -17,28 +17,36 @@ namespace Manager
         public float AuxiliaryEnergy { get; private set; }
         public int FuelCount { get; private set; }
 
-        public void SetMainEnergy(float setValue)
+        public void SetMainEnergy(float value)
         {
-            MainEnergy = setValue;
-            Mathf.Clamp(AuxiliaryEnergy, 0, InGameSystem.Instance.CurrentStageSetting.MaxBasePointEnergy);
+            MainEnergy = Mathf.Clamp(
+                value,
+                0,
+                InGameSystem.Instance.CurrentStageSetting.MaxBasePointEnergy);
         }
 
-        public void SetAuxiliaryEnergy(float setValue)
+        public void SetAuxiliaryEnergy(float value)
         {
-            AuxiliaryEnergy = setValue;
-            Mathf.Clamp(AuxiliaryEnergy, 0, InGameSystem.Instance.CurrentStageSetting.MaxPlayerEnergy);
+            AuxiliaryEnergy = Mathf.Clamp(
+                value,
+                0,
+                InGameSystem.Instance.CurrentStageSetting.MaxPlayerEnergy);
         }
 
-        public void AddMainEnergy(float addValue)
+        public void AddMainEnergy(float value)
         {
-            MainEnergy += addValue;
-            Mathf.Clamp(AuxiliaryEnergy, 0, InGameSystem.Instance.CurrentStageSetting.MaxBasePointEnergy);
+            MainEnergy = Mathf.Clamp(
+                MainEnergy + value,
+                0,
+                InGameSystem.Instance.CurrentStageSetting.MaxBasePointEnergy);
         }
 
-        public void AddAuxiliaryEnergy(float addValue)
+        public void AddAuxiliaryEnergy(float value)
         {
-            AuxiliaryEnergy += addValue;
-            Mathf.Clamp(AuxiliaryEnergy, 0, InGameSystem.Instance.CurrentStageSetting.MaxPlayerEnergy);
+            AuxiliaryEnergy = Mathf.Clamp(
+                    AuxiliaryEnergy + value,
+                    0,
+                    InGameSystem.Instance.CurrentStageSetting.MaxPlayerEnergy);
         }
 
         public void SetFuelCount(int fuelCount)
@@ -55,7 +63,6 @@ namespace Manager
         /// 指定されたステージの設定
         /// </summary>
         private StageSettings _currentStageSetting;
-        private InGameObjectManager _objectManager;
 
         private readonly Vector3 _playerStartPosition = new Vector3(0.0f, 4.0f, 0.0f);
         /// <summary>
@@ -65,7 +72,7 @@ namespace Manager
         /// <summary>
         /// インゲーム終了フラグ
         /// </summary>
-        private bool _isEndInGame = false;
+        private bool _isInGameEnded = false;
 
         public static InGameSystem Instance => _instance ??= new();
         /// <summary>
@@ -82,7 +89,7 @@ namespace Manager
         /// <summary>
         /// 生存時間
         /// </summary>
-        public float SurvivaleTimer => _inGameTimer;
+        public float SurvivalTimer => _inGameTimer;
 
         /// <summary>
         /// インゲームセットアップ
@@ -90,11 +97,11 @@ namespace Manager
         public void Setup(StageSettings setting)
         {
             _currentStageSetting = setting;
-            Reset();
-            _objectManager = new();
-            ObjectManager = _objectManager;
-            _objectManager.CreateObject<PlayerCharacter>(_playerStartPosition, Quaternion.identity);
-            _objectManager.CreateObject<BasePoint>(Vector3.zero, Quaternion.identity);
+            ResetInGameState();
+
+            ObjectManager = new();
+            ObjectManager.CreateObject<PlayerCharacter>(_playerStartPosition, Quaternion.identity);
+            ObjectManager.CreateObject<BasePoint>(Vector3.zero, Quaternion.identity);
 
             CountTimer().Forget();
 
@@ -105,14 +112,14 @@ namespace Manager
         /// <summary>
         /// リセット処理
         /// </summary>
-        public void Reset()
+        public void ResetInGameState()
         {
             Context.SetMainEnergy(_currentStageSetting.MaxBasePointEnergy);
             Context.SetAuxiliaryEnergy(_currentStageSetting.MaxPlayerEnergy);
             Context.SetFuelCount(0);
             _inGameTimer = _currentStageSetting.SurvivalTimeLimit;
-            _isEndInGame = false;
-            EnemyManager.Instance.ActivateEnemys(_currentStageSetting.IsActivateEnemy);
+            _isInGameEnded = false;
+            EnemyManager.Instance.ActivateEnemies(_currentStageSetting.IsActivateEnemy);
         }
 
         /// <summary>
@@ -121,16 +128,14 @@ namespace Manager
         /// <returns></returns>
         private async UniTask CountTimer()
         {
-            _inGameTimer = _currentStageSetting.SurvivalTimeLimit;
-
-            while (!_isEndInGame)
+            while (!_isInGameEnded)
             {
                 _inGameTimer -= Time.deltaTime;
 
                 if (_inGameTimer < 0.0f)
                 {
-                    OpenResult(ResultType.Clear);
-                    _isEndInGame = true;
+                    OpenResultPage(ResultType.Clear);
+                    _isInGameEnded = true;
                     break;
                 }
 
@@ -138,7 +143,9 @@ namespace Manager
 
                 if (Context.MainEnergy <= 0.0f)
                 {
-                    OpenResult(ResultType.GameOver);
+                    OpenResultPage(ResultType.GameOver);
+                    _isInGameEnded = true;
+                    break;
                 }
 
                 await UniTask.Yield();
@@ -154,10 +161,10 @@ namespace Manager
         /// <summary>
         /// クリア判定時の処理
         /// </summary>
-        private void OpenResult(ResultType result)
+        private void OpenResultPage(ResultType result)
         {
-            Reset();
-            _objectManager.DestroyAllObject();
+            ResetInGameState();
+            ObjectManager.DestroyAllObjects();
             ScreenNavigator.Instance.ChangePage(new ResultPageController() { Type = result });
 
             Cursor.visible = true;

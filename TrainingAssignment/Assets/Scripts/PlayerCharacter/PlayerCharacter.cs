@@ -78,7 +78,7 @@ public class PlayerCharacter : InteractionDetector
         var rotation = transform.rotation;
         rotation.z
             -= _rotationAction.ReadValue<Vector2>().x
-                * OptionManager.Instance.OptionData.MouseSensivity
+                * OptionManager.Instance.OptionData.MouseSensitivity
                 * Time.deltaTime;
 
         transform.rotation = rotation;

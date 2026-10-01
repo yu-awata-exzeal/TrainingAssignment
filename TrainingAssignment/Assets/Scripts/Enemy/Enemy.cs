@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour, IInteractable
     [SerializeField]
     private float _directionChangeAngle = 60f;
     /// <summary>
-    /// 範囲の端からどれぐらい違づけば戻るか
+    /// 範囲の端からどれぐらい近づけば戻るか
     /// </summary>
     [SerializeField]
     private float _edgeDistance = 1f;
@@ -38,12 +38,12 @@ public class Enemy : MonoBehaviour, IInteractable
 
     private Rigidbody2D _rigidbody;
     private Bounds _bounds;
-    private Vector2 _direction;
-    private float _directionTimer;
+    private Vector2 _direction = Vector2.zero;
+    private float _directionTimer = 0.0f;
 
-    private float _incapacitatedTimer;
+    private float _incapacitatedTimer = 0.0f;
     private int _currentHitPoint = 0;
-    private int _energyConsumption = 5;
+    private int _contactEnergyConsumption = 5;
 
     private bool _isIncapacitated = false;
 
@@ -86,9 +86,9 @@ public class Enemy : MonoBehaviour, IInteractable
     {
         _directionTimer -= Time.fixedDeltaTime;
 
-        if (_directionTimer <= 0f)
+        if (_directionTimer <= 0.0f)
         {
-            ChangeDirection();
+            UpdateIncapacitated();
             _directionTimer = _directionChangeInterval;
         }
 
@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour, IInteractable
         }
     }
 
-    private void ChangeDirection()
+    private void UpdateIncapacitated()
     {
         float angle = Random.Range(
             -_directionChangeAngle,
@@ -173,13 +173,13 @@ public class Enemy : MonoBehaviour, IInteractable
     /// <param name="context"></param>
     public void Interact(InteractionContext context)
     {
-        if (context.InteractType == InteractType.OnTriggerEnter)
+        if (context.InteractType == InteractType.TriggerEnter)
         {
-            if (context.PlayerObject as Bullet)
+            if (context.Interactor as Bullet)
             {
                 _currentHitPoint--;
 
-                if (_currentHitPoint == 0)
+                if (_currentHitPoint <= 0)
                 {
                     _isIncapacitated = true;
                 }
@@ -187,7 +187,7 @@ public class Enemy : MonoBehaviour, IInteractable
 
             if (!_isIncapacitated)
             {
-                InGameSystem.Context.AddAuxiliaryEnergy(-_energyConsumption);
+                InGameSystem.Context.AddAuxiliaryEnergy(-_contactEnergyConsumption);
             }
         }
     }

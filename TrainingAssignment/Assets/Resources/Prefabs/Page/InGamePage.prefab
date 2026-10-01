@@ -2115,7 +2115,7 @@ MonoBehaviour:
   _firstSelectable: {fileID: 0}
   _itemCountText: {fileID: 76739176125417099}
   _minutesText: {fileID: 863656141211751973}
-  _secondText: {fileID: 6515222564599570417}
-  _mainEnergyUI: {fileID: 2004577570758649899}
-  _subEnergyUI: {fileID: 4434419462699593863}
+  _secondsText: {fileID: 6515222564599570417}
+  _mainEnergy: {fileID: 2004577570758649899}
+  _subEnergy: {fileID: 4434419462699593863}
   _minimap: {fileID: 691709625243392205}

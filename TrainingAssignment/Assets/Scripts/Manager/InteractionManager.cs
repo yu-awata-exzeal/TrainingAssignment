@@ -4,9 +4,9 @@ namespace Manager
     public class InteractionContext
     {
         /// <summary>
-        /// Target側でプレイヤー関係オブジェクト判定を行う(自機か、弾か)
+        /// インタラクトを実行したオブジェクト
         /// </summary>
-        public InteractionDetector PlayerObject { get; init; }
+        public InteractionDetector Interactor { get; init; }
         /// <summary>
         /// プレイヤーのインベントリ
         /// </summary>
@@ -14,7 +14,7 @@ namespace Manager
         /// <summary>
         /// インタラクト方法
         /// </summary>
-        public InteractType InteractType { get; set; }
+        public InteractType InteractType { get; init; }
     }
 
     /// <summary>
@@ -25,11 +25,12 @@ namespace Manager
         /// <summary>
         /// 対象とプレイヤーのインタラクト処理実行
         /// </summary>
-        /// <param name="inventory"></param>
-        /// <param name="target"></param>
-        /// <param name="type"></param>
+        /// <param name="inventory">プレイヤーのインベントリ</param>
+        /// <param name="target">インタラクト対象</param>
+        /// <param name="Interactor">インタラクトを実行したオブジェクト</param>
+        /// <param name="type">インタラクト方法</param>
         public static void Interact(
-            PlayerInventory inventory, IInteractable target, InteractionDetector playerObject, InteractType type)
+            PlayerInventory inventory, IInteractable target, InteractionDetector Interactor, InteractType type)
         {
             if (target == null)
             {
@@ -38,7 +39,7 @@ namespace Manager
 
             var context = new InteractionContext()
             {
-                PlayerObject = playerObject,
+                Interactor = Interactor,
                 Inventory = inventory,
                 InteractType = type
             };

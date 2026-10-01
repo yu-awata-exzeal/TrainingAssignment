@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BasePoint : MonoBehaviour, IInteractable
 {
-    private int AuxiliaryContain = 5;
+    private float _auxiliaryRecoveryRate = 5;
 
     /// <summary>
     /// インタラクト処理
@@ -13,17 +13,17 @@ public class BasePoint : MonoBehaviour, IInteractable
     {
         if (context.InteractType == InteractType.ButtonInput)
         {
-            if (!context.Inventory.TryUseFuel(out var contain))
+            if (!context.Inventory.TryUseFuel(out var recoveryAmount))
             {
                 return;
             }
-            //回復
-            InGameSystem.Context.AddMainEnergy(contain);
+            // メイン電力を回復
+            InGameSystem.Context.AddMainEnergy(recoveryAmount);
         }
-
-        if (context.InteractType == InteractType.OnTriggerStay)
+        else if (context.InteractType == InteractType.TriggerStay)
         {
-            InGameSystem.Context.AddAuxiliaryEnergy(AuxiliaryContain * Time.deltaTime);
+            // プレイヤー電力を回復
+            InGameSystem.Context.AddAuxiliaryEnergy(_auxiliaryRecoveryRate * Time.deltaTime);
         }
     }
 }

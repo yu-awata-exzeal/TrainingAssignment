@@ -17,7 +17,7 @@ namespace PageController
     }
 
     /// <summary>
-    /// 
+    /// ページを管理するコントローラーの基底クラス
     /// </summary>
     public abstract class PageControllerBase<TPage, TContext>
         : PageControllerBase
@@ -25,7 +25,7 @@ namespace PageController
         where TContext : IContext
     {
         /// <summary>
-        /// 管理しているページオブジェクト
+        /// 管理しているページ
         /// </summary>
         private TPage _page;
         protected TContext _context;
@@ -36,7 +36,7 @@ namespace PageController
         public abstract string Name { get; }
 
         /// <summary>
-        /// ぷれはぶのPath
+        /// プレハブパス
         /// </summary>
         public string PrefabPath => $"Prefabs/Page/{Name}";
 
@@ -58,7 +58,7 @@ namespace PageController
         /// </summary>
         public sealed override void DestroyPage()
         {
-            ResourceManager.UnloadPrefab(PrefabPath);
+            ResourceManager.RemovePrefabCache(PrefabPath);
             Object.Destroy(_page.gameObject);
         }
     }

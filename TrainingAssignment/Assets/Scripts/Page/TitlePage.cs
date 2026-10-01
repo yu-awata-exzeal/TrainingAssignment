@@ -4,7 +4,7 @@ namespace Page
 {
     public class TitleContext : IContext
     {
-        public Action OnOpenStageSelectButtonClick { get; init; }
+        public Action OnOpenStageSelectClick { get; init; }
     }
 
     public class TitlePage : PageBase<TitleContext>
@@ -14,7 +14,7 @@ namespace Page
         /// </summary>
         public void OpenStageSelect()
         {
-            Context.OnOpenStageSelectButtonClick.Invoke();
+            Context.OnOpenStageSelectClick.Invoke();
         }
     }
 }

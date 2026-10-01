@@ -4,31 +4,32 @@ using UnityEngine;
 
 public class InGameObjectManager
 {
-    private class InGameObjectData
+    private class InGameObjectEntry
     {
         /// <summary>
         /// 登録しているオブジェクト
         /// </summary>
         public GameObject Object { get; init; }
         /// <summary>
-        /// オブジェクトのプレハブPath
+        /// オブジェクトのプレハブパス
         /// </summary>
         public string Path { get; init; }
     }
 
-    private List<InGameObjectData> _objectList = new();
-    private Transform _worldScope;
+    private readonly List<InGameObjectEntry> _objectList = new();
 
     /// <summary>
-    /// 指定したコンポーネントを持つプレハブを生成
-    /// ※プレハブ名はコンポーネントと同名
+    /// 指定したコンポーネント名のプレハブを生成
+    /// ※プレハブ名はコンポーネント名と同一
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     public void CreateObject<TComponent>(Vector3 position, Quaternion rotation) where TComponent : Component
     {
         var newObject
-            = ResourceManager.InstantiatePrefab<TComponent>(position, rotation, $"Prefabs/{typeof(TComponent).Name}");
-        newObject.transform.parent = ScreenNavigator.Instance.WorldScope;
+            = ResourceManager.InstantiatePrefab<TComponent>(
+                position,
+                rotation,
+                $"Prefabs/{typeof(TComponent).Name}");
 
         _objectList.Add(new()
         {
@@ -36,17 +37,17 @@ public class InGameObjectManager
             Path = $"Prefabs/{typeof(TComponent).Name}",
         });
 
-        newObject.transform.parent = _worldScope;
+        newObject.transform.parent = ScreenNavigator.Instance.WorldScope;
     }
 
     /// <summary>
     /// 登録してあるオブジェクトをすべて削除
     /// </summary>
-    public void DestroyAllObject()
+    public void DestroyAllObjects()
     {
         foreach (var objData in _objectList)
         {
-            ResourceManager.UnloadPrefab(objData.Path);
+            ResourceManager.RemovePrefabCache(objData.Path);
             Object.Destroy(objData.Object);
         }
         _objectList.Clear();

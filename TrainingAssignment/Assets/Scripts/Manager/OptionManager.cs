@@ -11,9 +11,9 @@ namespace Manager
         {
             Volume = volume;
         }
-        public void SetIsMute(bool flag)
+        public void SetMute(bool isMute)
         {
-            IsMute = flag;
+            IsMute = isMute;
         }
     }
 
@@ -21,11 +21,11 @@ namespace Manager
     {
         public AudioSetting Se { get; } = new();
 
-        public float MouseSensivity { get; private set; } = 0.5f;
+        public float MouseSensitivity { get; private set; } = 0.5f;
 
-        public void SetMouseSensivity(float value)
+        public void SetMouseSensitivity(float value)
         {
-            MouseSensivity = value;
+            MouseSensitivity = value;
         }
     }
 
@@ -35,21 +35,21 @@ namespace Manager
 
         public static OptionManager Instance => _instance ??= new();
 
-        private const string SE_VOLUME_KEY = "SEVolume";
-        private const string SE_MUTE_KEY = "SEMute";
-        private const string MOUSE_SENSITIVITY_KEY = "MouseSensitivity";
+        private const string _seVolumeKey = "SEVolume";
+        private const string _seMuteKey = "SEMute";
+        private const string _mouseSensitivityKey = "MouseSensitivity";
 
         // デフォルト値
-        private const float DEFAULT_VOLUME = 0.5f;
+        private const float _defaultVolume = 0.5f;
 
-        private const bool DEFAULT_MUTE = false;
-        private const float DEFAULT_MOUSE_SENSITIVITY = 0.5f;
+        private const bool _defaultMute = false;
+        private const float _defaultMouseSensitivity = 0.5f;
 
-        private OptionData _settingOtionData = new();
+        private OptionData _settingOptionData = new();
 
         private OptionData _baseOtionData = new();
 
-        public OptionData OptionData => _settingOtionData;
+        public OptionData OptionData => _settingOptionData;
 
         private OptionManager()
         {
@@ -61,58 +61,58 @@ namespace Manager
         /// </summary>
         private void Load()
         {
-            _baseOtionData.Se.SetVolume(PlayerPrefs.GetFloat(SE_VOLUME_KEY, DEFAULT_VOLUME));
-            _baseOtionData.Se.SetIsMute(PlayerPrefs.GetInt(SE_MUTE_KEY, 0) == 1);
-            _baseOtionData.SetMouseSensivity(
-                PlayerPrefs.GetFloat(MOUSE_SENSITIVITY_KEY, DEFAULT_MOUSE_SENSITIVITY));
+            _baseOtionData.Se.SetVolume(PlayerPrefs.GetFloat(_seVolumeKey, _defaultVolume));
+            _baseOtionData.Se.SetMute(PlayerPrefs.GetInt(_seMuteKey, 0) == 1);
+            _baseOtionData.SetMouseSensitivity(
+                PlayerPrefs.GetFloat(_mouseSensitivityKey, _defaultMouseSensitivity));
 
-            _settingOtionData = _baseOtionData;
+            _settingOptionData = _baseOtionData;
         }
 
         public void SetSeVolume(float value)
         {
-            _settingOtionData.Se.SetVolume(value);
-            PlayerPrefs.SetFloat(SE_VOLUME_KEY, value);
+            _settingOptionData.Se.SetVolume(value);
+            PlayerPrefs.SetFloat(_seVolumeKey, value);
         }
 
         public void SetSeMute(bool value)
         {
-            _settingOtionData.Se.SetIsMute(value);
-            PlayerPrefs.SetInt(SE_MUTE_KEY, value ? 1 : 0);
+            _settingOptionData.Se.SetMute(value);
+            PlayerPrefs.SetInt(_seMuteKey, value ? 1 : 0);
         }
 
         public void SetMouseSensitivity(float value)
         {
-            _settingOtionData.SetMouseSensivity(value);
+            _settingOptionData.SetMouseSensitivity(value);
 
-            PlayerPrefs.SetFloat(MOUSE_SENSITIVITY_KEY, value);
+            PlayerPrefs.SetFloat(_mouseSensitivityKey, value);
         }
 
         /// <summary>
         /// 変更前の状態にリセット
         /// </summary>
-        public void ReverOption()
+        public void RevertOption()
         {
             SetSeVolume(_baseOtionData.Se.Volume);
             SetSeMute(_baseOtionData.Se.IsMute);
-            SetMouseSensitivity(_baseOtionData.MouseSensivity);
-            Save();
+            SetMouseSensitivity(_baseOtionData.MouseSensitivity);
+            SaveOption();
         }
 
         public void ResetOption()
         {
-            SetSeVolume(DEFAULT_VOLUME);
-            SetSeMute(DEFAULT_MUTE);
-            SetMouseSensitivity(DEFAULT_MOUSE_SENSITIVITY);
-            Save();
+            SetSeVolume(_defaultVolume);
+            SetSeMute(_defaultMute);
+            SetMouseSensitivity(_defaultMouseSensitivity);
+            SaveOption();
         }
 
         /// <summary>
         /// PlayerPrefsに保存
         /// </summary>
-        public void Save()
+        public void SaveOption()
         {
-            _baseOtionData = _settingOtionData;
+            _baseOtionData = _settingOptionData;
             PlayerPrefs.Save();
         }
     }

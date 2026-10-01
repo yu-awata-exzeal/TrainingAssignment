@@ -4,18 +4,18 @@ using UnityEngine;
 namespace Manager
 {
     /// <summary>
-    ///　リソース生成・管理クラス
+    /// リソース生成・管理クラス
     /// </summary>
     public class ResourceManager
     {
-        private static Dictionary<string, GameObject> _prefabs = new();
+        private static readonly Dictionary<string, GameObject> _prefabs = new();
 
         /// <summary>
-        /// 指定したパスのプレハブを取得
+        /// 指定したパスのプレハブを生成
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        static public T InstantiatePrefab<T>(Vector3 position, Quaternion rotation, string path) where T : Component
+        public static T InstantiatePrefab<T>(Vector3 position, Quaternion rotation, string path) where T : Component
         {
             var prefab = LoadPrefab<T>(path);
 
@@ -23,13 +23,12 @@ namespace Manager
         }
 
         /// <summary>
-        /// 指定したパスのプレハブをアンロード
+        /// 指定したパスのプレハブをキャッシュから削除
         /// </summary>
         /// <param name="path"></param>
-        static public void UnloadPrefab(string path)
+        public static void RemovePrefabCache(string path)
         {
-            if (string.IsNullOrEmpty(path)
-                || !_prefabs.ContainsKey(path))
+            if (string.IsNullOrEmpty(path))
                 return;
 
             _prefabs.Remove(path);
@@ -39,8 +38,8 @@ namespace Manager
         /// 指定したパスのプレハブをロード
         /// </summary>
         /// <param name="path"></param>
-        /// <returns></returns>
-        static private T LoadPrefab<T>(string path) where T : Component
+        /// <returns>指定したパスのプレハブアセット</returns>
+        private static T LoadPrefab<T>(string path) where T : Component
         {
             if (string.IsNullOrEmpty(path))
                 return null;
